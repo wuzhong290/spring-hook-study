@@ -15,7 +15,7 @@ public class DemoController {
 
     @RequestMapping(value = "/person")
     @ResponseBody
-    public  String getStudentInfo(@RequestBody Person person) {
-        return person.getName();
+    public Person getStudentInfo(@RequestBody Person person) {
+        return person;
     }
 }

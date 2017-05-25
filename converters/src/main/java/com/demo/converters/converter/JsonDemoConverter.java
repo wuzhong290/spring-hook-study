@@ -4,12 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.util.IOUtils;
 import com.demo.converters.annotation.JsonDemo;
-import com.demo.converters.model.Person;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
+import org.springframework.http.converter.GenericHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 
@@ -17,11 +17,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Type;
 
 /**
  * Created by thinkpad on 2017/5/24.
  */
-public class JsonDemoConverter extends AbstractHttpMessageConverter<Object> {
+public class JsonDemoConverter extends AbstractHttpMessageConverter<Object> implements GenericHttpMessageConverter<Object>{
     public JsonDemoConverter() {
         super(MediaType.ALL);
     }
@@ -29,8 +30,8 @@ public class JsonDemoConverter extends AbstractHttpMessageConverter<Object> {
     @Override
 
     protected boolean supports(Class<?> aClass) {
-        boolean s = Person.class.isAnnotationPresent(JsonDemo.class);
-        System.out.println("supports:"+s);
+        boolean s = aClass.isAnnotationPresent(JsonDemo.class);
+        System.out.println("supports:"+s+","+aClass.getName());
         return s;
     }
 
@@ -52,5 +53,48 @@ public class JsonDemoConverter extends AbstractHttpMessageConverter<Object> {
         OutputStream out = httpOutputMessage.getBody();
         outnew.writeTo(out);
         outnew.close();
+    }
+
+    @Override
+    public boolean canRead(Type type, Class<?> contextClass, MediaType mediaType) {
+        return (type instanceof Class ? canRead((Class<?>) type, mediaType) : canRead(mediaType));
+    }
+
+    @Override
+    public Object read(Type type, Class<?> contextClass, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+        InputStream in = inputMessage.getBody();
+        Object str = JSON.parseObject(in, IOUtils.UTF8, type, Feature.AllowSingleQuotes);
+        System.out.println("read:"+str);
+        return str;
+    }
+
+    @Override
+    public boolean canWrite(Type type, Class<?> clazz, MediaType mediaType) {
+        return super.canWrite(clazz, mediaType);
+    }
+
+    public void write(Object t, //
+                      Type type, //
+                      MediaType contentType, //
+                      HttpOutputMessage outputMessage //
+    ) throws IOException, HttpMessageNotWritableException {
+
+        HttpHeaders headers = outputMessage.getHeaders();
+        if (headers.getContentType() == null) {
+            if (contentType == null || contentType.isWildcardType() || contentType.isWildcardSubtype()) {
+                contentType = getDefaultContentType(t);
+            }
+            if (contentType != null) {
+                headers.setContentType(contentType);
+            }
+        }
+        if (headers.getContentLength() == -1) {
+            Long contentLength = getContentLength(t, headers.getContentType());
+            if (contentLength != null) {
+                headers.setContentLength(contentLength);
+            }
+        }
+        writeInternal(t, outputMessage);
+        outputMessage.getBody().flush();
     }
 }
