@@ -2,8 +2,8 @@ package com.demo.converters.converter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;
-import com.alibaba.fastjson.util.IOUtils;
-import com.demo.converters.annotation.JsonDemo;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
@@ -18,11 +18,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 
 /**
  * Created by thinkpad on 2017/5/24.
  */
 public class JsonDemoConverter extends AbstractHttpMessageConverter<Object> implements GenericHttpMessageConverter<Object>{
+    private final static Charset UTF8  = Charset.forName("UTF-8");
+
     public JsonDemoConverter() {
         super(MediaType.ALL);
     }
@@ -30,7 +33,7 @@ public class JsonDemoConverter extends AbstractHttpMessageConverter<Object> impl
     @Override
 
     protected boolean supports(Class<?> aClass) {
-        boolean s = aClass.isAnnotationPresent(JsonDemo.class);
+        boolean s = aClass.isAnnotationPresent(com.demo.converters.annotation.Base64.class);
         System.out.println("supports:"+s+","+aClass.getName());
         return s;
     }
@@ -38,7 +41,7 @@ public class JsonDemoConverter extends AbstractHttpMessageConverter<Object> impl
     @Override
     protected Object readInternal(Class<? extends Object> aClass, HttpInputMessage httpInputMessage) throws IOException, HttpMessageNotReadableException {
         InputStream in = httpInputMessage.getBody();
-        Object str = JSON.parseObject(in, IOUtils.UTF8, aClass, Feature.AllowSingleQuotes);
+        Object str = JSON.parseObject(in, UTF8, aClass, Feature.AllowSingleQuotes);
         System.out.println("readInternal:"+str);
         return str;
     }
@@ -48,7 +51,7 @@ public class JsonDemoConverter extends AbstractHttpMessageConverter<Object> impl
         System.out.println("writeInternal:"+s);
         HttpHeaders headers = httpOutputMessage.getHeaders();
         ByteArrayOutputStream outnew = new ByteArrayOutputStream();
-        int len = JSON.writeJSONString(outnew, IOUtils.UTF8, s);
+        int len = JSON.writeJSONString(outnew, UTF8, s);
         headers.setContentLength((long)len);
         OutputStream out = httpOutputMessage.getBody();
         outnew.writeTo(out);
@@ -63,7 +66,8 @@ public class JsonDemoConverter extends AbstractHttpMessageConverter<Object> impl
     @Override
     public Object read(Type type, Class<?> contextClass, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
         InputStream in = inputMessage.getBody();
-        Object str = JSON.parseObject(in, IOUtils.UTF8, type, Feature.AllowSingleQuotes);
+        byte[] inByte = IOUtils.toByteArray(in);
+        Object str = JSON.parseObject(new String(Base64.decodeBase64(inByte),UTF8),type, Feature.AllowSingleQuotes);
         System.out.println("read:"+str);
         return str;
     }

@@ -1,11 +1,11 @@
 package com.demo.converters.model;
 
-import com.demo.converters.annotation.JsonDemo;
+import com.demo.converters.annotation.Base64;
 
 /**
  * Created by thinkpad on 2017/5/24.
  */
-@JsonDemo
+@Base64
 public class Person {
     private String name;
     private int age;
