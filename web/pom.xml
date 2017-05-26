@@ -37,5 +37,9 @@
             <groupId>com.spring.hooks</groupId>
             <artifactId>converters</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.spring.hooks</groupId>
+            <artifactId>handlerExceptionResolver</artifactId>
+        </dependency>
     </dependencies>
 </project>
