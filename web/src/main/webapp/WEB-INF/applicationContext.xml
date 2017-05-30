@@ -19,6 +19,9 @@
             <ref bean="demo" />
             <ref bean="jsonConverter" />
         </mvc:message-converters>
+        <mvc:argument-resolvers>
+            <bean class="com.demo.resolvers.argumentResolver.JsonMethodArgumentResolver"/>
+        </mvc:argument-resolvers>
     </mvc:annotation-driven>
 
     <!--字符串转换器-->
