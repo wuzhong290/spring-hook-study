@@ -22,7 +22,7 @@ public class ResolveArgumentStrategyUtils {
         STRATEGYS.put("DEFAULT", defaultArgumentStrategy);
     }
 
-    public static ResolveArgumentStrategy getResolveArgumentStrategy(String key){
+    public final static ResolveArgumentStrategy getResolveArgumentStrategy(String key){
         return STRATEGYS.get(key);
     }
 }
