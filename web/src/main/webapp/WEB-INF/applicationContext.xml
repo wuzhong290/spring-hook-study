@@ -76,4 +76,9 @@
     <bean id="httpErrorMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:basename="classpath:/testMessages"
           p:defaultEncoding="UTF-8" />
+
+
+    <bean id="demoMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+          p:basename="classpath:/messages"
+          p:defaultEncoding="UTF-8" />
 </beans>

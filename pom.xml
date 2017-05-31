@@ -134,5 +134,7 @@
         <module>converters</module>
         <module>handlerExceptionResolver</module>
         <module>handlerMethodArgumentResolver</module>
+        <module>messageSource</module>
+        <module>beanPostProcessor</module>
     </modules>
 </project>
