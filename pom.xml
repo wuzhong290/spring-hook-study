@@ -22,6 +22,11 @@
             </dependency>
             <dependency>
                 <groupId>com.spring.hooks</groupId>
+                <artifactId>lifecycle</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spring.hooks</groupId>
                 <artifactId>handlerExceptionResolver</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -136,5 +141,6 @@
         <module>handlerMethodArgumentResolver</module>
         <module>messageSource</module>
         <module>beanPostProcessor</module>
+        <module>lifecycle</module>
     </modules>
 </project>
