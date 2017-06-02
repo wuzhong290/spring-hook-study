@@ -3,6 +3,7 @@ package com.demo.lifecycle.beanFactoryPostProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.*;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -62,6 +63,10 @@ public class DemoBeanFactoryPostProcessor implements BeanFactoryPostProcessor,In
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         LOG.info("postProcessBeanFactory");
         BeanDefinition beanDefinition = beanFactory.getBeanDefinition("lifeCycleBean");
-        beanDefinition.setAttribute("mes","message");
+        MutablePropertyValues pv =  beanDefinition.getPropertyValues();
+        if(pv.contains("mes"))
+        {
+            pv.addPropertyValue("mes","message");
+        }
     }
 }
