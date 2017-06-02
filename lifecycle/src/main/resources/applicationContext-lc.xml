@@ -1,6 +1,5 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
@@ -8,4 +7,8 @@
           init-method="initMethod" destroy-method="destroyMethod" >
         <property name="desc" value="hello"/>
     </bean>
+
+    <bean class="com.demo.lifecycle.beanPostProcessor.DemoBeanPostProcessor"/>
+
+    <bean class="com.demo.lifecycle.beanFactoryPostProcessor.DemoBeanFactoryPostProcessor"/>
 </beans>

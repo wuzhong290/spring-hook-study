@@ -1,9 +1,12 @@
-package com.demo.lifecycle.bean;
+package com.demo.lifecycle.beanFactoryPostProcessor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -11,13 +14,8 @@ import javax.annotation.PreDestroy;
 /**
  * Created by wuzhong on 2017/6/2.
  */
-public class LifeCycleBean implements InitializingBean,DisposableBean,BeanFactoryAware,BeanNameAware{
-
-    private static final Logger LOG = LoggerFactory.getLogger(LifeCycleBean.class);
-
-    private String desc;
-
-    private String mes;
+public class DemoBeanFactoryPostProcessor implements BeanFactoryPostProcessor,InitializingBean,DisposableBean,BeanFactoryAware,BeanNameAware {
+    private static final Logger LOG = LoggerFactory.getLogger(DemoBeanFactoryPostProcessor.class);
 
     private String name;
 
@@ -60,32 +58,10 @@ public class LifeCycleBean implements InitializingBean,DisposableBean,BeanFactor
     private void preDestroy(){
         LOG.info("preDestroy");
     }
-
-    public String getDesc() {
-        LOG.info("getDesc");
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        LOG.info("setDesc");
-        this.desc = desc;
-    }
-
-    public String getMes() {
-        return mes;
-    }
-
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
-
     @Override
-    public String toString() {
-        return "LifeCycleBean{" +
-                "desc='" + desc + '\'' +
-                ", mes='" + mes + '\'' +
-                ", name='" + name + '\'' +
-                ", beanFactory=" + beanFactory +
-                '}';
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        LOG.info("postProcessBeanFactory");
+        BeanDefinition beanDefinition = beanFactory.getBeanDefinition("lifeCycleBean");
+        beanDefinition.setAttribute("mes","message");
     }
 }
