@@ -166,5 +166,7 @@
         <module>beanPostProcessor</module>
         <module>lifecycle</module>
         <module>springSchemas</module>
+        <module>handlerInterceptor</module>
+        <module>methodInterceptor</module>
     </modules>
 </project>
