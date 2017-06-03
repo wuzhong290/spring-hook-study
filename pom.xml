@@ -17,6 +17,11 @@
         <dependencies>
             <dependency>
                 <groupId>com.spring.hooks</groupId>
+                <artifactId>springSchemas</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spring.hooks</groupId>
                 <artifactId>converters</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -142,5 +147,6 @@
         <module>messageSource</module>
         <module>beanPostProcessor</module>
         <module>lifecycle</module>
+        <module>springSchemas</module>
     </modules>
 </project>

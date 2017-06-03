@@ -1,0 +1,12 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:people="http://www.letwgo.cn/schema/people"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.letwgo.cn/schema/people http://www.letwgo.cn/schema/people.xsd">
+    <people:student id="student1" name="student1"
+                    age="18" />
+
+    <people:student id="student2" name="student2"
+                    age="20" />
+</beans>
