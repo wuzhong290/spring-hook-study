@@ -134,6 +134,24 @@
                 <artifactId>jackson-mapper-asl</artifactId>
                 <version>1.9.13</version>
             </dependency>
+            <!-- mybatis核心包 -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.2.6</version>
+            </dependency>
+            <!-- mybatis/spring包 -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>1.2.2</version>
+            </dependency>
+            <!-- 导入Mysql数据库链接jar包 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.30</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
