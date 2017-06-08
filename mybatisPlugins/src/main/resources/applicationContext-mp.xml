@@ -31,6 +31,9 @@
                     </property>
                 </bean>
                 <bean class="com.demo.mybatis.mapperhelper.MapperInterceptor"/>
+                <bean class="com.demo.mybatis.plugins.StatementHandlerInterceptor"/>
+                <bean class="com.demo.mybatis.plugins.ParameterHandlerInterceptor"/>
+                <bean class="com.demo.mybatis.plugins.ResultSetHandlerInterceptor"/>
             </array>
         </property>
     </bean>

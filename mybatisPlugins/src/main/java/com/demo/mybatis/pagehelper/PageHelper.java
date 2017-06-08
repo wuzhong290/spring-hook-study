@@ -30,6 +30,8 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Properties;
@@ -44,6 +46,7 @@ import java.util.Properties;
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Intercepts(@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}))
 public class PageHelper implements Interceptor {
+    private static final Logger LOG = LoggerFactory.getLogger(PageHelper.class);
     private static final ThreadLocal<Page> LOCAL_PAGE = new ThreadLocal<Page>();
     //sql工具类
     private SqlUtil SQLUTIL;
@@ -104,6 +107,7 @@ public class PageHelper implements Interceptor {
      * @throws Throwable 抛出异常
      */
     public Object intercept(Invocation invocation) throws Throwable {
+        LOG.info("intercept");
         final Object[] args = invocation.getArgs();
         RowBounds rowBounds = (RowBounds) args[2];
         if (LOCAL_PAGE.get() == null && rowBounds == RowBounds.DEFAULT) {

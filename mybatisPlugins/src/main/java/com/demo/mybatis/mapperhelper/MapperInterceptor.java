@@ -6,6 +6,8 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
@@ -17,11 +19,13 @@ import java.util.Properties;
         @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
 })
 public class MapperInterceptor implements Interceptor {
+    private static final Logger LOG = LoggerFactory.getLogger(MapperInterceptor.class);
 
     private final MapperHelper mapperHelper = new MapperHelper();
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
+        LOG.info("intercept");
         Object[] objects = invocation.getArgs();
         MappedStatement ms = (MappedStatement) objects[0];
         String msId = ms.getId();
