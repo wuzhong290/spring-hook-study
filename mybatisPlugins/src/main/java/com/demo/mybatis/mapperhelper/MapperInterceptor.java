@@ -25,7 +25,7 @@ public class MapperInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        LOG.info("intercept");
+        LOG.info("intercept:{},args={},target{}"+invocation.getMethod(),invocation.getArgs(),invocation.getTarget());
         Object[] objects = invocation.getArgs();
         MappedStatement ms = (MappedStatement) objects[0];
         String msId = ms.getId();

@@ -107,7 +107,7 @@ public class PageHelper implements Interceptor {
      * @throws Throwable 抛出异常
      */
     public Object intercept(Invocation invocation) throws Throwable {
-        LOG.info("intercept");
+        LOG.info("intercept:{},args={},target{}"+invocation.getMethod(),invocation.getArgs(),invocation.getTarget());
         final Object[] args = invocation.getArgs();
         RowBounds rowBounds = (RowBounds) args[2];
         if (LOCAL_PAGE.get() == null && rowBounds == RowBounds.DEFAULT) {

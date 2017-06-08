@@ -21,13 +21,13 @@ public class ResultSetHandlerInterceptor  implements Interceptor {
     private static final Logger LOG = LoggerFactory.getLogger(ResultSetHandlerInterceptor.class);
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        LOG.info("intercept");
+        LOG.info("intercept:{},args={},target{}"+invocation.getMethod(),invocation.getArgs(),invocation.getTarget());
         return invocation.proceed();
     }
 
     @Override
     public Object plugin(Object target) {
-        if (target instanceof StatementHandler) {
+        if (target instanceof ResultSetHandler) {
             return Plugin.wrap(target, this);
         } else {
             return target;
