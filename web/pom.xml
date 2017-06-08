@@ -13,6 +13,10 @@
     <dependencies>
         <dependency>
             <groupId>com.spring.hooks</groupId>
+            <artifactId>mybatisPlugins</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.spring.hooks</groupId>
             <artifactId>handlerInterceptor</artifactId>
         </dependency>
         <dependency>
