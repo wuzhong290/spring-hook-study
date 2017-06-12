@@ -42,8 +42,8 @@
         <property name="basePackage" value="com.demo.mybatis.mapper"/>
     </bean>
 
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
-        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+            <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>
 
 </beans>
