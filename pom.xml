@@ -255,5 +255,6 @@
         <module>handlerInterceptor</module>
         <module>methodInterceptor</module>
         <module>mybatisPlugins</module>
+        <module>rxjava</module>
     </modules>
 </project>
