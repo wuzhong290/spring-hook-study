@@ -51,6 +51,11 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.spring.hooks</groupId>
+                <artifactId>cxf</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
                 <version>4.3.8.RELEASE</version>
@@ -215,6 +220,21 @@
                 <artifactId>cglib</artifactId>
                 <version>2.2.2</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-core</artifactId>
+                <version>3.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <version>3.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>3.1.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -256,5 +276,6 @@
         <module>methodInterceptor</module>
         <module>mybatisPlugins</module>
         <module>rxjava</module>
+        <module>cxf</module>
     </modules>
 </project>
