@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 public class TaskServiceImpl implements TaskService {
     @Override
     public String getValue() {
-        System.out.println("dddddddddddddddddddddddddd");
         return "dddddddddddddddddddddddddd";
     }
 }

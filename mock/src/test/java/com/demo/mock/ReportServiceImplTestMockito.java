@@ -5,12 +5,15 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 /**
@@ -21,6 +24,8 @@ import static org.mockito.Mockito.when;
         "classpath*:applicationContext-mock.xml"})
 public class ReportServiceImplTestMockito {
 
+    private final Logger logger = LoggerFactory.getLogger(ReportServiceImplTestMockito.class);
+
     @Before
     public void setup() throws IOException {
         MockitoAnnotations.initMocks(this);
@@ -29,16 +34,20 @@ public class ReportServiceImplTestMockito {
     @Mock
     private TaskService  taskServiceImpl;
 
-
     @Autowired
     @InjectMocks
     private ReportServiceImpl service;
-
 
     @Test
     public void testMockInjected() {
         when(taskServiceImpl.getValue()).thenReturn("mock");
 
         System.out.println(service.getTaskServiceImpl().getValue());
+
+        try{
+            assertEquals("mock1", service.getTaskServiceImpl().getValue());
+        }catch (Throwable e){
+            logger.error(e.getMessage());
+        }
     }
 }
