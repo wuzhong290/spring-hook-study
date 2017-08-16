@@ -1,5 +1,4 @@
 package com.demo.mock;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
+
+import static org.mockito.Mockito.when;
 
 /**
  * Created by wuzhong on 2017/8/15.
@@ -36,6 +37,8 @@ public class ReportServiceImplTestMockito {
 
     @Test
     public void testMockInjected() {
+        when(taskServiceImpl.getValue()).thenReturn("mock");
+
         System.out.println(service.getTaskServiceImpl().getValue());
     }
 }
