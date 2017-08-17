@@ -14,7 +14,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public String getValue() {
-        System.out.println("TaskServiceImpl getValue");
-        return childService.getName();
+        String value = childService.getName("TaskServiceImpl", true);
+        System.out.println("TaskServiceImpl getValue:"+value);
+        return value;
     }
 }

@@ -11,4 +11,8 @@ public class ChildService {
     String getName(){
         return  "wpz";
     }
+
+    String getName(String name, boolean flag){
+        return  name + flag;
+    }
 }

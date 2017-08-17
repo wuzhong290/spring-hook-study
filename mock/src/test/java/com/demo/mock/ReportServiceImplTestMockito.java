@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 /**
@@ -31,11 +33,12 @@ public class ReportServiceImplTestMockito {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Mock
+    @Autowired
+    @InjectMocks
     private TaskService  taskServiceImpl;
 
     @Mock
-    private ChildService  child;
+    private ChildService  childService;
 
     @Autowired
     @InjectMocks
@@ -56,20 +59,17 @@ public class ReportServiceImplTestMockito {
 
     @Test
     public void testMock1Injected() {
-        when(child.getName()).thenReturn("mock");
-        try{
+        when(childService.getName()).thenReturn("mock");
+        when(childService.getName(anyString(), anyBoolean())).thenReturn("mock");
+//        try{
             assertEquals("mock", service.getTaskServiceImpl().getValue());
-        }catch (Throwable e){
-            logger.error(e.getMessage());
-        }
+//        }catch (Throwable e){
+//            logger.error(e.getMessage());
+//        }
     }
 
     @Test
     public void testMock2Injected() {
-        try{
-            assertEquals("wpz", service.getTaskServiceImpl().getValue());
-        }catch (Throwable e){
-            logger.error(e.getMessage());
-        }
+        assertEquals("wpz1", service.getTaskServiceImpl().getValue());
     }
 }
