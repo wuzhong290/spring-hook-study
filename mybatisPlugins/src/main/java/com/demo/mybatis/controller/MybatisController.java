@@ -2,6 +2,7 @@ package com.demo.mybatis.controller;
 
 import com.demo.mybatis.service.DemoService;
 import com.demo.mybatis.model.Country;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -47,5 +48,9 @@ public class MybatisController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize
     ) {
         return demoService.selectPage(pageNum, pageSize);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(SqlSessionFactoryBean.class.getSimpleName());
     }
 }

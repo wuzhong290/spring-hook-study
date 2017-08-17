@@ -13,9 +13,10 @@ public class TaskServiceImpl implements TaskService {
     private ChildService childService;
 
     @Override
-    public String getValue() {
-        String value = childService.getName("TaskServiceImpl", true);
-        System.out.println("TaskServiceImpl getValue:"+value);
-        return value;
+    public String readValue() {
+        String value1 = childService.getName("TaskServiceImpl", true);
+        String value2 = value1 + "111";
+        System.out.println("TaskServiceImpl getValue:"+value2);
+        return value2;
     }
 }

@@ -5,5 +5,5 @@ package com.demo.mock;
  */
 public interface TaskService {
 
-    String getValue();
+    String readValue();
 }

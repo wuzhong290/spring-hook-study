@@ -46,12 +46,12 @@ public class ReportServiceImplTestMockito {
 
     @Test
     public void testMockInjected() {
-        when(taskServiceImpl.getValue()).thenReturn("mock");
+        when(taskServiceImpl.readValue()).thenReturn("mock");
 
-        System.out.println(service.getTaskServiceImpl().getValue());
+        System.out.println(service.getTaskServiceImpl().readValue());
 
         try{
-            assertEquals("mock", service.getTaskServiceImpl().getValue());
+            assertEquals("mock", service.getTaskServiceImpl().readValue());
         }catch (Throwable e){
             logger.error(e.getMessage());
         }
@@ -61,15 +61,11 @@ public class ReportServiceImplTestMockito {
     public void testMock1Injected() {
         when(childService.getName()).thenReturn("mock");
         when(childService.getName(anyString(), anyBoolean())).thenReturn("mock");
-//        try{
-            assertEquals("mock", service.getTaskServiceImpl().getValue());
-//        }catch (Throwable e){
-//            logger.error(e.getMessage());
-//        }
+        assertEquals("mock", service.getTaskServiceImpl().readValue());
     }
 
     @Test
     public void testMock2Injected() {
-        assertEquals("wpz1", service.getTaskServiceImpl().getValue());
+        assertEquals("wpz1", service.getTaskServiceImpl().readValue());
     }
 }
