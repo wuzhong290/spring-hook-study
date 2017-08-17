@@ -34,6 +34,9 @@ public class ReportServiceImplTestMockito {
     @Mock
     private TaskService  taskServiceImpl;
 
+    @Mock
+    private ChildService  child;
+
     @Autowired
     @InjectMocks
     private ReportServiceImpl service;
@@ -45,7 +48,26 @@ public class ReportServiceImplTestMockito {
         System.out.println(service.getTaskServiceImpl().getValue());
 
         try{
-            assertEquals("mock1", service.getTaskServiceImpl().getValue());
+            assertEquals("mock", service.getTaskServiceImpl().getValue());
+        }catch (Throwable e){
+            logger.error(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testMock1Injected() {
+        when(child.getName()).thenReturn("mock");
+        try{
+            assertEquals("mock", service.getTaskServiceImpl().getValue());
+        }catch (Throwable e){
+            logger.error(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testMock2Injected() {
+        try{
+            assertEquals("wpz", service.getTaskServiceImpl().getValue());
         }catch (Throwable e){
             logger.error(e.getMessage());
         }

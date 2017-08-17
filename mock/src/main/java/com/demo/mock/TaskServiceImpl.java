@@ -1,5 +1,6 @@
 package com.demo.mock;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -7,8 +8,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TaskServiceImpl implements TaskService {
+
+    @Autowired
+    private ChildService childService;
+
     @Override
     public String getValue() {
-        return "dddddddddddddddddddddddddd";
+        System.out.println("TaskServiceImpl getValue");
+        return childService.getName();
     }
 }
