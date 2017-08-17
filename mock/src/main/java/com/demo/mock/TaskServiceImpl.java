@@ -1,16 +1,13 @@
 package com.demo.mock;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * Created by wuzhong on 2017/8/15.
  */
 @Service
-public class TaskServiceImpl implements TaskService {
+public class TaskServiceImpl extends TaskService {
 
-    @Autowired
-    private ChildService childService;
 
     @Override
     public String readValue() {

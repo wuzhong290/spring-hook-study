@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 public class MockTest1 {
     @Autowired
     @InjectMocks
-    private TaskService  taskServiceImpl;
+    private TaskServiceImpl  taskServiceImpl;
 
     @Mock
     private ChildService  childService;

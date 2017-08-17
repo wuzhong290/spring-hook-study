@@ -1,9 +1,14 @@
 package com.demo.mock;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * Created by wuzhong on 2017/8/15.
  */
-public interface TaskService {
+public abstract class TaskService {
 
-    String readValue();
+    @Autowired
+    ChildService childService;
+
+    abstract String readValue();
 }

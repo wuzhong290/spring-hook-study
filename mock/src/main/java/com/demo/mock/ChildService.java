@@ -1,11 +1,11 @@
 package com.demo.mock;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by wuzhong on 2017/8/17.
  */
-@Service
+@Component
 public class ChildService {
 
     String getName(){
