@@ -284,5 +284,6 @@
         <module>rxjava</module>
         <module>cxf</module>
         <module>mock</module>
+        <module>cache</module>
     </modules>
 </project>

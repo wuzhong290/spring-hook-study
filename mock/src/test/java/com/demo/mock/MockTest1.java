@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,7 +14,6 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.when;
 
 /**
@@ -29,7 +27,7 @@ public class MockTest1 {
     @InjectMocks
     private TaskServiceImpl  taskServiceImpl;
 
-    @Mock
+    //@Mock
     private ChildService  childService;
 
     @Autowired
@@ -58,8 +56,8 @@ public class MockTest1 {
 
     @Test
     public void testMockWhen3() {
-        when(childService.getName()).thenReturn("mock1mock2");
-        when(childService.getName(anyString(), anyBoolean())).thenReturn("mock1mock2");
+        //when(childService.getName()).thenReturn("mock1mock2");
+        //when(childService.getName(anyString(), anyBoolean())).thenReturn("mock1mock2");
         assertEquals("mock1mock2111", service.getTaskServiceImpl().readValue());
     }
 }
