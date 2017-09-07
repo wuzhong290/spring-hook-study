@@ -1,0 +1,13 @@
+package com.demo.designMode;
+
+import com.demo.designMode.model.TaxiRide;
+global com.demo.designMode.model.Fare rideFare;
+dialect  "mvel"
+
+rule "Calculate Taxi Fare - Scenario 1"
+    when
+        taxiRideInstance:TaxiRide();
+    then
+        rideFare.setNightSurcharge(0);
+        rideFare.setRideFare(70);
+end
