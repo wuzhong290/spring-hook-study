@@ -36,7 +36,7 @@ public class StrategyController {
         taxiRide.setNightSurcharge(false);
         taxiRide.setDistanceInMile(9L);
         Fare rideFare = new Fare();
-        Long totalCharge = taxiFareCalculatorService.calculateFare(taxiRide, rideFare);
+        int totalCharge = taxiFareCalculatorService.calculateFare(taxiRide, rideFare);
         System.out.println(totalCharge);
     }
 }

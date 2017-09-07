@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class TaxiFareCalculatorService {
 
-    public Long calculateFare(TaxiRide taxiRide, Fare rideFare) {
+    public int calculateFare(TaxiRide taxiRide, Fare rideFare) {
         KieSession kieSession = TaxiFareConfiguration.getInstance().newKieSession();
         kieSession.setGlobal("rideFare", rideFare);
         kieSession.insert(taxiRide);
         kieSession.fireAllRules();
         kieSession.dispose();
-        return rideFare.getTotalFare();
+        return rideFare.getRideFare();
     }
 }
