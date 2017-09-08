@@ -2,7 +2,9 @@ package com.demo.designMode.service;
 
 import com.demo.designMode.model.Fare;
 import com.demo.designMode.model.TaxiRide;
+import com.demo.designMode.rule.TaxiFareRule;
 import org.kie.api.runtime.KieSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,8 +13,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class TaxiFareCalculatorService {
 
+    @Autowired
+    private TaxiFareRule taxiFareRule;
+
     public int calculateFare(TaxiRide taxiRide, Fare rideFare) {
-        KieSession kieSession = TaxiFareConfiguration.getInstance().newKieSession();
+        KieSession kieSession = taxiFareRule.getInstance().newKieSession();
         kieSession.setGlobal("rideFare", rideFare);
         kieSession.insert(taxiRide);
         kieSession.fireAllRules();
