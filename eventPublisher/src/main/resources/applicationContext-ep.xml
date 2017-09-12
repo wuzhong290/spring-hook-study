@@ -1,0 +1,17 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--支持异步的事件-->
+    <bean  id="event-discard-policy" class="java.util.concurrent.ThreadPoolExecutor.DiscardPolicy"/>
+    <bean id="event-thread-pool-executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="queueCapacity" value="50000"/>
+        <property name="maxPoolSize" value="10"/>
+        <property name="rejectedExecutionHandler" ref="event-discard-policy"/>
+    </bean>
+    <bean id="applicationEventMulticaster"
+          class="org.springframework.context.event.SimpleApplicationEventMulticaster">
+        <property name="taskExecutor" ref="event-thread-pool-executor"/>
+    </bean>
+</beans>

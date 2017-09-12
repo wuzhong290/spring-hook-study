@@ -17,6 +17,16 @@
         <dependencies>
             <dependency>
                 <groupId>com.spring.hooks</groupId>
+                <artifactId>eventPublisher</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spring.hooks</groupId>
+                <artifactId>designMode</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spring.hooks</groupId>
                 <artifactId>mybatisPlugins</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -301,5 +311,6 @@
         <module>mock</module>
         <module>cache</module>
         <module>designMode</module>
+        <module>eventPublisher</module>
     </modules>
 </project>
