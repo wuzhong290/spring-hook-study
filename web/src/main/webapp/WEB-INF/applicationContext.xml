@@ -22,6 +22,10 @@
         <mvc:argument-resolvers>
             <bean class="com.demo.resolvers.argumentResolver.JsonMethodArgumentResolver"/>
         </mvc:argument-resolvers>
+        <mvc:return-value-handlers>
+            <bean class="io.jmnarloch.spring.boot.rxjava.mvc.ObservableReturnValueHandler"/>
+            <bean class="io.jmnarloch.spring.boot.rxjava.mvc.SingleReturnValueHandler"/>
+        </mvc:return-value-handlers>
     </mvc:annotation-driven>
 
     <!--字符串转换器-->

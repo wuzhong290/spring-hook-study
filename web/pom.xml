@@ -13,6 +13,10 @@
     <dependencies>
         <dependency>
             <groupId>com.spring.hooks</groupId>
+            <artifactId>rxJava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.spring.hooks</groupId>
             <artifactId>eventPublisher</artifactId>
         </dependency>
         <dependency>

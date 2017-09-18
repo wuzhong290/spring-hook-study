@@ -17,6 +17,11 @@
         <dependencies>
             <dependency>
                 <groupId>com.spring.hooks</groupId>
+                <artifactId>rxJava</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spring.hooks</groupId>
                 <artifactId>eventPublisher</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -266,6 +271,11 @@
                 <artifactId>kie-spring</artifactId>
                 <version>7.0.0.Final</version>
             </dependency>
+            <dependency>
+                <groupId>io.reactivex.rxjava2</groupId>
+                <artifactId>rxjava</artifactId>
+                <version>2.1.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -306,11 +316,11 @@
         <module>handlerInterceptor</module>
         <module>methodInterceptor</module>
         <module>mybatisPlugins</module>
-        <module>rxjava</module>
         <module>cxf</module>
         <module>mock</module>
         <module>cache</module>
         <module>designMode</module>
         <module>eventPublisher</module>
+        <module>rxJava</module>
     </modules>
 </project>
