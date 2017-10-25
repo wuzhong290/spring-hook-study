@@ -20,7 +20,7 @@ public class UploadAction {
     public String upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request, ModelMap model) {
 
         System.out.println("开始");
-        String path = request.getSession().getServletContext().getRealPath("upload");
+        String path = request.getSession().getServletContext().getRealPath("uploaddir");
         String fileName = file.getOriginalFilename();
 //        String fileName = new Date().getTime()+".jpg";
         System.out.println(path);
@@ -35,7 +35,7 @@ public class UploadAction {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        model.addAttribute("fileUrl", request.getContextPath()+"/upload/"+fileName);
+        model.addAttribute("fileUrl", request.getContextPath()+"/uploaddir/"+fileName);
 
         return "result";
     }
