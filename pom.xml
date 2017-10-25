@@ -17,6 +17,11 @@
         <dependencies>
             <dependency>
                 <groupId>com.spring.hooks</groupId>
+                <artifactId>multipart</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spring.hooks</groupId>
                 <artifactId>rxJava</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -322,5 +327,6 @@
         <module>designMode</module>
         <module>eventPublisher</module>
         <module>rxJava</module>
+        <module>multipart</module>
     </modules>
 </project>
