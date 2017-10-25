@@ -9,4 +9,6 @@
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     
     <mvc:resources mapping="/uploaddir/**" location="/uploaddir/"/>
+    <mvc:resources mapping="/plupload/js/**" location="/plupload/js/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
 </beans>
