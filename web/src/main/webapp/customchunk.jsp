@@ -55,8 +55,8 @@
             ]
         },
 
-        flash_swf_url : '../js/Moxie.swf',
-        silverlight_xap_url : '../js/Moxie.xap',
+        flash_swf_url : '<%=basePath%>plupload/js/Moxie.swf',
+        silverlight_xap_url : '<%=basePath%>plupload/js/Moxie.xap',
 
         // PreInit events, bound before the internal events
         preinit : {
