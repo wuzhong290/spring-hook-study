@@ -35,9 +35,10 @@
  
 <script type="text/javascript">
     var uploader = new plupload.Uploader({
-        // General settings
-        runtimes : 'silverlight,html4',
-        browse_button : 'pickfiles', // you can pass in id...
+
+        runtimes : 'html5,flash,silverlight,html4',
+        browse_button : 'pickfiles', // you can pass an id...
+        container: document.getElementById('container'), // ... or DOM Element itself
         url : '<%=basePath%>upload/plupload',
         chunk_size : '1mb',
         unique_names : true,
