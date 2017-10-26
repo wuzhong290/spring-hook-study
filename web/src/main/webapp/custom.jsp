@@ -43,6 +43,7 @@
     // Custom example logic
 
     var uploader = new plupload.Uploader({
+        
         runtimes : 'html5,flash,silverlight,html4',
         browse_button : 'pickfiles', // you can pass an id...
         container: document.getElementById('container'), // ... or DOM Element itself
