@@ -110,7 +110,7 @@ public class UploadAction {
                 List<MultipartFile> multipartFiles = entry.getValue();
                 try {
                     MultipartFile multipartFile = multipartFiles.get(0);
-                    System.out.println(multipartFile.getOriginalFilename() +":"+multipartFile.getName());
+                    System.out.println(URLDecoder.decode(multipartFile.getOriginalFilename(), "UTF-8") +":"+multipartFile.getName());
                     List<String> readlines = IOUtils.readLines(multipartFile.getInputStream());
                     for (String line : readlines){
                         System.out.println(line);

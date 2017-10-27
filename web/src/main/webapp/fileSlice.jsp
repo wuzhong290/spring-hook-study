@@ -30,7 +30,7 @@
         var end;
         var index = 0;
         var filesize = blob.size;
-        var filename = blob.name;
+        var filename = encodeURI(blob.name);
 
         //计算文件切片总数
         totalPieces = Math.ceil(filesize / bytesPerPiece);
