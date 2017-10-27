@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -109,6 +110,7 @@ public class UploadAction {
             }
             Map<String, String[]> parameterMap =  request.getParameterMap();
             try {
+                System.out.println(URLDecoder.decode(JSON.toJSONString(JSON.toJSONString(parameterMap)), "UTF-8"));
                 response.getWriter().write(JSON.toJSONString(parameterMap));
                 response.getWriter().flush();
             } catch (IOException e) {
