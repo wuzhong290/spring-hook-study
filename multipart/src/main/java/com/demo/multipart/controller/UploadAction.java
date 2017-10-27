@@ -107,6 +107,17 @@ public class UploadAction {
             MultiValueMap<String, MultipartFile> map = multipartRequest.getMultiFileMap();
             for (Map.Entry<String, List<MultipartFile>> entry : map.entrySet()) {
                 System.out.println(entry.getKey());
+                List<MultipartFile> multipartFiles = entry.getValue();
+                try {
+                    MultipartFile multipartFile = multipartFiles.get(0);
+                    System.out.println(multipartFile.getOriginalFilename() +":"+multipartFile.getName());
+                    List<String> readlines = IOUtils.readLines(multipartFile.getInputStream());
+                    for (String line : readlines){
+                        System.out.println(line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             Map<String, String[]> parameterMap =  request.getParameterMap();
             try {
