@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by thinkpad on 2017/5/24.
+ * url:http://localhost:8080/demo/person
+ * 入参：ewoibmFtZSI6ImRkZGRkZGRkZGRkZGQiLAoiYWdlIjoxMTEKfQ==
+ * 出参：{
+ "age": 111,
+ "name": "ddddddddddddd"
+ }
  */
 @Controller
 @RequestMapping("/demo")
