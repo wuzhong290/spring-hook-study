@@ -5,6 +5,7 @@
   Time: 11:09
   To change this template use File | Settings | File Templates.
   https://github.com/satazor/js-spark-md5.git
+  https://github.com/blueimp/JavaScript-MD5
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
