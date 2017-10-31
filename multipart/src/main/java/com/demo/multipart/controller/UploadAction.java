@@ -11,6 +11,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -63,7 +64,8 @@ public class UploadAction {
 
     /**上传处理方法*/
     @RequestMapping(value="/plupload", method = RequestMethod.POST)
-    public String upload(Plupload plupload, HttpServletRequest request, HttpServletResponse response) {
+    @ResponseBody
+    public void upload(Plupload plupload, HttpServletRequest request, HttpServletResponse response) {
 
         //System.out.println(plupload.getChunk() + "===" + plupload.getName() + "---" + plupload.getChunks());
 
@@ -87,8 +89,6 @@ public class UploadAction {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return "login.upload";
     }
 
     /**上传处理方法*/
