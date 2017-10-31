@@ -51,7 +51,7 @@
                     width : 200,
                     height : 200,
                     quality : 90,
-                    crop: true
+                    crop: false
                     // crop to exact dimensions
                 },             // Flash settings
                 flash_swf_url : '<%=basePath%>plupload/js/Moxie.swf',

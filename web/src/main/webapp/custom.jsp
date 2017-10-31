@@ -58,7 +58,14 @@
                 {title : "Zip files", extensions : "zip"}
             ]
         },
-
+        // Resize images on clientside if we can
+        resize: {
+            width : 200,
+            height : 200,
+            quality : 90,
+            crop: false
+            // crop to exact dimensions
+        },
         init: {
             PostInit: function() {
                 document.getElementById('filelist').innerHTML = '';
