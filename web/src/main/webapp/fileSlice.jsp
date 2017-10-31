@@ -21,7 +21,15 @@
 <body>
 <input type="file" name="file" id="file">
 <button id="upload" onClick="upload()">upload</button>
+<button id="bash64" onClick="bash64()">bash64</button>
 <script type="text/javascript">
+    function bash64(){
+        var str = 'javascript';
+        //bash64编码
+        alert(window.btoa(str));
+        //bash64解码
+        alert(window.atob("amF2YXNjcmlwdA=="));
+    }
     var bytesPerPiece = 1024 * 1024; // 每个文件切片大小定为1MB .
     var totalPieces;
     //发送请求
