@@ -106,17 +106,6 @@
                 <version>4.3.8.RELEASE</version>
             </dependency>
             <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjrt</artifactId>
-                <version>1.8.12</version>
-            </dependency>
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>1.8.12</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>4.3.8.RELEASE</version>
