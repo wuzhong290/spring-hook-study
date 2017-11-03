@@ -17,6 +17,11 @@
         <dependencies>
             <dependency>
                 <groupId>com.spring.hooks</groupId>
+                <artifactId>aop</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spring.hooks</groupId>
                 <artifactId>multipart</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -89,6 +94,27 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
                 <version>4.3.8.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>4.3.8.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+                <version>4.3.8.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>1.8.12</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>1.8.12</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -328,5 +354,6 @@
         <module>eventPublisher</module>
         <module>rxJava</module>
         <module>multipart</module>
+        <module>aop</module>
     </modules>
 </project>
