@@ -1,2 +1,16 @@
 .idea
 *.iml
+aop/target/
+web/target/
+mybatisPlugins/target/
+handlerMethodArgumentResolver/target/
+handlerExceptionResolver/target/
+rxJava/target/
+eventPublisher/target/
+designMode/target/
+springSchemas/target/
+multipart/target/
+lifecycle/target/
+converters/target/
+cxf/target/
+handlerInterceptor/target/
