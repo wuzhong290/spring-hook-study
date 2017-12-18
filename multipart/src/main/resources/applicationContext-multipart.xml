@@ -11,4 +11,5 @@
     <mvc:resources mapping="/uploaddir/**" location="/uploaddir/"/>
     <mvc:resources mapping="/plupload/js/**" location="/plupload/js/"/>
     <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/iptv/**" location="/iptv/"/>
 </beans>

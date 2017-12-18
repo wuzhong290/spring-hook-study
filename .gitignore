@@ -18,3 +18,4 @@ cache/target/
 beanPostProcessor/target/
 messageSource/target/
 mock/target/
+methodInterceptor/target/
