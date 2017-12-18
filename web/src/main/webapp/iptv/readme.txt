@@ -1,0 +1,1 @@
+IPTV.extend({isReady: false,readyWait: 1,	test: function() {alert(this.isReady)}});
