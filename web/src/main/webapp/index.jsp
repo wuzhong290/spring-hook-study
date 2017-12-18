@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+    <script type="text/javascript" src="./iptv/iptv.core-1.0.js"></script>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -25,5 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <input type="file" name="file" />
           <input type="submit" value="Submit" />
       </form>
+      <script type="text/javascript">
+          console.info(IPTV.getHostPath());
+      </script>
   </body>
 </html>

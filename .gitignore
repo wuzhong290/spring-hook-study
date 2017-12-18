@@ -14,3 +14,7 @@ lifecycle/target/
 converters/target/
 cxf/target/
 handlerInterceptor/target/
+cache/target/
+beanPostProcessor/target/
+messageSource/target/
+mock/target/
