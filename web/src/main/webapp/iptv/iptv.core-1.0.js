@@ -449,6 +449,9 @@ IPTV.fn = IPTV.prototype = {
         class2type[ core_toString.call(obj) ] || "object" :
             typeof obj;
     },
+    isFunction: function( obj ) {
+        return this.type(obj) === "function";
+    },
     isWindow: function( obj ) {
         return obj != null && obj == obj.window;
     },
@@ -500,7 +503,7 @@ IPTV.extend = IPTV.fn.extend = function() {
     }
 
     // Handle case when target is a string or something (possible in deep copy)
-    if ( typeof target !== "object" && !jQuery.isFunction(target) ) {
+    if ( typeof target !== "object" && !this.isFunction(target) ) {
         target = {};
     }
 
