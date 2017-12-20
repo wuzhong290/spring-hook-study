@@ -16,6 +16,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
     <script type="text/javascript" src="iptv/iptv.core-1.0.js"></script>
+    <script type="text/javascript" src="iptv/iptv.Delegate-1.0.js"></script>
+    <script type="text/javascript" src="iptv/iptv.Delegate.date-1.0.js"></script>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->

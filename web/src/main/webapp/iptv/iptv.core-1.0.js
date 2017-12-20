@@ -3,6 +3,8 @@
  */
 (function( window, undefined ) {
 var core_version = "1.0",
+    class2type = {},
+    core_toString = class2type.toString,
     document = window.document,
     location = window.location,
     IPTV=function() {
@@ -440,13 +442,77 @@ IPTV.fn = IPTV.prototype = {
             url= url_+"?"+params;
         }
         return url;
-    },
+    }
+}
+IPTV.extend = IPTV.fn.extend = function() {
+    var src, copyIsArray, copy, name, options, clone,
+        target = arguments[0] || {},
+        i = 1,
+        length = arguments.length,
+        deep = false;
+
+    // Handle a deep copy situation
+    if ( typeof target === "boolean" ) {
+        deep = target;
+        target = arguments[1] || {};
+        // skip the boolean and the target
+        i = 2;
+    }
+
+    // Handle case when target is a string or something (possible in deep copy)
+    if ( typeof target !== "object" && !IPTV.isFunction(target) ) {
+        target = {};
+    }
+
+    // extend jQuery itself if only one argument is passed
+    if ( length === i ) {
+        target = this;
+        --i;
+    }
+
+    for ( ; i < length; i++ ) {
+        // Only deal with non-null/undefined values
+        if ( (options = arguments[ i ]) != null ) {
+            // Extend the base object
+            for ( name in options ) {
+                src = target[ name ];
+                copy = options[ name ];
+
+                // Prevent never-ending loop
+                if ( target === copy ) {
+                    continue;
+                }
+
+                // Recurse if we're merging plain objects or arrays
+                if ( deep && copy && ( IPTV.isPlainObject(copy) || (copyIsArray = IPTV.isArray(copy)) ) ) {
+                    if ( copyIsArray ) {
+                        copyIsArray = false;
+                        clone = src && IPTV.isArray(src) ? src : [];
+
+                    } else {
+                        clone = src && IPTV.isPlainObject(src) ? src : {};
+                    }
+
+                    // Never move original objects, clone them
+                    target[ name ] = IPTV.extend( deep, clone, copy );
+
+                    // Don't bring in undefined values
+                } else if ( copy !== undefined ) {
+                    target[ name ] = copy;
+                }
+            }
+        }
+    }
+    // Return the modified object
+    return target;
+};
+IPTV.extend({
     type: function( obj ) {
         if ( obj == null ) {
             return String( obj );
         }
         return typeof obj === "object" || typeof obj === "function" ?
-        class2type[ core_toString.call(obj) ] || "object" :
+            class2type[ core_toString.call(obj) ] || "object" :
             typeof obj;
     },
     isFunction: function( obj ) {
@@ -485,70 +551,8 @@ IPTV.fn = IPTV.prototype = {
         for ( key in obj ) {}
 
         return key === undefined || core_hasOwn.call( obj, key );
-    },
-}
-IPTV.extend = IPTV.fn.extend = function() {
-    var src, copyIsArray, copy, name, options, clone,
-        target = arguments[0] || {},
-        i = 1,
-        length = arguments.length,
-        deep = false;
-
-    // Handle a deep copy situation
-    if ( typeof target === "boolean" ) {
-        deep = target;
-        target = arguments[1] || {};
-        // skip the boolean and the target
-        i = 2;
     }
-
-    // Handle case when target is a string or something (possible in deep copy)
-    if ( typeof target !== "object" && !this.isFunction(target) ) {
-        target = {};
-    }
-
-    // extend jQuery itself if only one argument is passed
-    if ( length === i ) {
-        target = this;
-        --i;
-    }
-
-    for ( ; i < length; i++ ) {
-        // Only deal with non-null/undefined values
-        if ( (options = arguments[ i ]) != null ) {
-            // Extend the base object
-            for ( name in options ) {
-                src = target[ name ];
-                copy = options[ name ];
-
-                // Prevent never-ending loop
-                if ( target === copy ) {
-                    continue;
-                }
-
-                // Recurse if we're merging plain objects or arrays
-                if ( deep && copy && ( this.isPlainObject(copy) || (copyIsArray = this.isArray(copy)) ) ) {
-                    if ( copyIsArray ) {
-                        copyIsArray = false;
-                        clone = src && this.isArray(src) ? src : [];
-
-                    } else {
-                        clone = src && this.isPlainObject(src) ? src : {};
-                    }
-
-                    // Never move original objects, clone them
-                    target[ name ] = IPTV.extend( deep, clone, copy );
-
-                    // Don't bring in undefined values
-                } else if ( copy !== undefined ) {
-                    target[ name ] = copy;
-                }
-            }
-        }
-    }
-    // Return the modified object
-    return target;
-};
+});
 IPTV.fn.init.prototype = IPTV.fn;
 window.IPTV = window.$ = IPTV;
 })( window );
