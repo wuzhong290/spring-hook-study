@@ -444,6 +444,7 @@ IPTV.fn = IPTV.prototype = {
         return url;
     }
 }
+IPTV.fn.init.prototype = IPTV.fn;
 IPTV.extend = IPTV.fn.extend = function() {
     var src, copyIsArray, copy, name, options, clone,
         target = arguments[0] || {},
@@ -553,6 +554,5 @@ IPTV.extend({
         return key === undefined || core_hasOwn.call( obj, key );
     }
 });
-IPTV.fn.init.prototype = IPTV.fn;
 window.IPTV = window.$ = IPTV;
 })( window );
