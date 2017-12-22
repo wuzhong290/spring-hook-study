@@ -29,14 +29,7 @@
         }
     };
 
-    $.Date = $.Delegate.inheritInstance(delegateClass, function() {
-        if (isNaN(this._DELEGATE_OBJ_)) {
-            return this._DELEGATE_OBJ_;
-        }
-        setLastDayList_.apply(this, arguments);
-        this.locale = $.getLocale();
-        this.name = '$.Date';
-    });
+    $.Date = new Date();
     $.extend($.Date, {
         isLeapYear : function(year) {
             if (arguments.length === 0) {

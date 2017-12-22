@@ -552,7 +552,74 @@ IPTV.extend({
         for ( key in obj ) {}
 
         return key === undefined || core_hasOwn.call( obj, key );
+    },
+    each: function( obj, callback, args ) {
+        var value,
+            i = 0,
+            length = obj.length,
+            isArray = isArraylike( obj );
+
+        if ( args ) {
+            if ( isArray ) {
+                for ( ; i < length; i++ ) {
+                    value = callback.apply( obj[ i ], args );
+
+                    if ( value === false ) {
+                        break;
+                    }
+                }
+            } else {
+                for ( i in obj ) {
+                    value = callback.apply( obj[ i ], args );
+
+                    if ( value === false ) {
+                        break;
+                    }
+                }
+            }
+
+            // A special, fast, case for the most common use of each
+        } else {
+            if ( isArray ) {
+                for ( ; i < length; i++ ) {
+                    value = callback.call( obj[ i ], i, obj[ i ] );
+
+                    if ( value === false ) {
+                        break;
+                    }
+                }
+            } else {
+                for ( i in obj ) {
+                    value = callback.call( obj[ i ], i, obj[ i ] );
+
+                    if ( value === false ) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return obj;
+    },
+});
+function isArraylike( obj ) {
+    var length = obj.length,
+        type = IPTV.type( obj );
+
+    if (IPTV.isWindow( obj ) ) {
+        return false;
     }
+
+    if ( obj.nodeType === 1 && length ) {
+        return true;
+    }
+
+    return type === "array" || type !== "function" &&
+        ( length === 0 ||
+            typeof length === "number" && length > 0 && ( length - 1 ) in obj );
+}
+IPTV.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function (i, name) {
+    class2type["[object " + name + "]"] = name.toLowerCase();
 });
 window.IPTV = window.$ = IPTV;
 })( window );
