@@ -6,7 +6,8 @@
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
     <!--  Service Implementation -->
-    <bean id="helloServiceImpl" class="com.demo.webservice.HelloServiceImpl" />
+    <bean id="helloServiceImpl" class="com.njqg.HelloServiceImplPortImpl" />
+    <bean id="helloServiceImplbak" class="com.demo.webservice.HelloServiceImpl" />
     <!-- JAX-WS  Endpoint -->
     <jaxws:endpoint id="helloService" implementor="#helloServiceImpl" address="/HelloService"/>
 
