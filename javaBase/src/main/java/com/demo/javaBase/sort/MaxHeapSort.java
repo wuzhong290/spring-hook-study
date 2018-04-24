@@ -16,18 +16,8 @@ public class MaxHeapSort {
     static int a[]={49,38,65,97,76,13,27,49};
 
     public static void main(String[] args){
-        int k = 3;
-        //b[0]为最小值
-        buildMaxHeap(a,k-1);
+        heapSort(a);
         System.out.println(Arrays.toString(a));
-        for (int i = k; i < a.length; i++) {
-            if(a[0] > a[i]){
-                a[0]  = a[i];
-                buildMaxHeap(a,k -1);
-                System.out.println(Arrays.toString(a));
-            }
-        }
-        //heapSort(a);
     }
     //堆排序函数
     public static void heapSort(int[] a){
