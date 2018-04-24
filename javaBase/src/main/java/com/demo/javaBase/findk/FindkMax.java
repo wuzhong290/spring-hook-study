@@ -1,6 +1,5 @@
 package com.demo.javaBase.findk;
 
-import com.demo.javaBase.sort.MaxHeapSort;
 import com.demo.javaBase.sort.MinHeapSort;
 
 import java.util.Arrays;

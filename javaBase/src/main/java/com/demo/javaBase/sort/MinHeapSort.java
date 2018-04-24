@@ -37,9 +37,12 @@ public class MinHeapSort {
     }
     //交换元素的函数
     public static void swap(int[] a,int i,int j){
-        int tmp = a[i];
-        a[i] = a[j];
-        a[j] = tmp;
+//        int tmp = a[i];
+//        a[i] = a[j];
+//        a[j] = tmp;
+        a[i] = a[i]^a[j];
+        a[j] = a[i]^a[j];
+        a[i] = a[i]^a[j];
     }
 
     /**
