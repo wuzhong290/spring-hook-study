@@ -8,11 +8,23 @@ import org.springframework.ui.Model;
 
 import com.demo.service.StudentManager;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 @RequestMapping("/student-module")
 public class StudentController {
     @Autowired
     StudentManager manager;
+
+    @RequestMapping(value="/uc",method = RequestMethod.GET)
+    public String quer(Model model,HttpServletResponse httpServletResponse) throws Exception {
+        Cookie cookie = new Cookie("majun", "xiaoya");
+        //设置cookie的过期时间是1000s
+        cookie.setMaxAge(1000);
+        httpServletResponse.addCookie(cookie);
+        return "forward:/student-module/getStudentInfo";
+    }
  
     @RequestMapping(value = "/getStudentInfo", method = RequestMethod.GET)
     public String getStudentInfo(Model model) {

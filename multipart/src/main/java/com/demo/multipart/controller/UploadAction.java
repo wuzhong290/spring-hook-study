@@ -2,6 +2,7 @@ package com.demo.multipart.controller;
 import com.alibaba.fastjson.JSON;
 import com.demo.multipart.model.Plupload;
 import com.demo.multipart.utils.PluploadUtil;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.MediaType;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.List;
@@ -112,6 +114,9 @@ public class UploadAction {
                     MultipartFile multipartFile = multipartFiles.get(0);
                     System.out.println(URLDecoder.decode(multipartFile.getOriginalFilename(), "UTF-8") +":"+multipartFile.getName());
                     List<String> readlines = IOUtils.readLines(multipartFile.getInputStream());
+                    File f = new File("/date/"+multipartFile.getOriginalFilename());
+                    FileOutputStream outputStream = new FileOutputStream(f);
+                    IOUtils.copy(multipartFile.getInputStream(), outputStream);
                     for (String line : readlines){
                         System.out.println(line);
                     }
