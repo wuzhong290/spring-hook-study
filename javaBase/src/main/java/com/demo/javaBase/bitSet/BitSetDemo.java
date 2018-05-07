@@ -1,6 +1,5 @@
 package com.demo.javaBase.bitSet;
 
-import java.util.Arrays;
 import java.util.BitSet;
 
 public class BitSetDemo {
@@ -93,7 +92,7 @@ public class BitSetDemo {
             System.out.print(i+"\t");
         }
         System.out.println("---------------------------出现的数字");
-        for (int i = bitSet.nextClearBit(0); i >= 0 && i<bitSet.size(); i = bitSet.nextClearBit(i + 1)) {
+        for (int i = bitSet.nextClearBit(0); i >= 0 && i<bitSet.length(); i = bitSet.nextClearBit(i + 1)) {
             System.out.print(i+"\t");
         }
         System.out.println("---------------------------未出现的数字");
