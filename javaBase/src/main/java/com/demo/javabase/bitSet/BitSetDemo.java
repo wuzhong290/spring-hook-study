@@ -1,4 +1,4 @@
-package com.demo.javaBase.bitSet;
+package com.demo.javabase.bitSet;
 
 import java.util.BitSet;
 

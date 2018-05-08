@@ -1,4 +1,4 @@
-package com.demo.javaBase.thread;
+package com.demo.javabase.thread;
 
 import java.util.Vector;
 

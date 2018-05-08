@@ -1,4 +1,4 @@
-package com.demo.javaBase.sort;
+package com.demo.javabase.sort;
 
 import java.util.Arrays;
 

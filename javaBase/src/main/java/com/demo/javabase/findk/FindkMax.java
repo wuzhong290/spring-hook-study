@@ -1,6 +1,6 @@
-package com.demo.javaBase.findk;
+package com.demo.javabase.findk;
 
-import com.demo.javaBase.sort.MinHeapSort;
+import com.demo.javabase.sort.MinHeapSort;
 
 import java.util.Arrays;
 

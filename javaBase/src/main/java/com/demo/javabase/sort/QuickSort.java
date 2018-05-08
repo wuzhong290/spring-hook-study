@@ -1,4 +1,4 @@
-package com.demo.javaBase.sort;
+package com.demo.javabase.sort;
 
 import java.util.Arrays;
 
@@ -12,11 +12,11 @@ public class QuickSort {
 
     public static void quickSort(int[] a) {
         if(a.length>0) {
-            quickSort(a, 0 , a.length-1);
+            quickSortMinToMax(a, 0 , a.length-1);
         }
     }
 
-    private static void quickSort(int[] a, int low, int high) {
+    private static void quickSortMinToMax(int[] a, int low, int high) {
         //1,找到递归算法的出口
         if( low > high) {
             return;
@@ -48,8 +48,8 @@ public class QuickSort {
         a[i] = a[low];
         a[low] = p;
         //5, 对key左边的数快排
-        quickSort(a, low, i-1 );
+        quickSortMinToMax(a, low, i-1 );
         //6, 对key右边的数快排
-        quickSort(a, i+1, high);
+        quickSortMinToMax(a, i+1, high);
     }
 }
