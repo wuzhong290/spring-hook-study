@@ -16,5 +16,9 @@ public class BitSetSort {
         for (int i = used.nextSetBit(0); i >= 0; i = used.nextSetBit(i + 1)) {
             System.out.print(i + ", ");
         }
+        System.out.println("=======================");
+        for (int i = used.nextClearBit(0); i >= 0 && i<used.length(); i = used.nextClearBit(i + 1)) {
+            System.out.print(i+"\t");
+        }
     }
 }
