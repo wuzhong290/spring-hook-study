@@ -3,6 +3,7 @@ package com.demo.javabase.sort;
 import java.util.Arrays;
 
 public class InsertSort {
+    // [13, 27, 38, 49, 65, 76, 97]
     public static void insertSortMinToMax(int[] a) {
         int i, j, insertNote;// 要插入的数据
         //从数组的第二个元素开始循环将数组中的元素插入
@@ -19,7 +20,7 @@ public class InsertSort {
             a[j + 1] = insertNote;
         }
     }
-
+    //[97, 76, 65, 49, 38, 27, 13]
     public static void insertSortMaxToMin(int[] a) {
         int i, j, insertNote;// 要插入的数据
         //从数组的第二个元素开始循环将数组中的元素插入
@@ -39,8 +40,8 @@ public class InsertSort {
 
     public static void main(String[] args) {
         int a[] = { 38,65,97,76,13,27,49 };
-        //insertSortMinToMax(a);
-        insertSortMaxToMin(a);
+        insertSortMinToMax(a);
+        //insertSortMaxToMin(a);
         System.out.println(Arrays.toString(a));
     }
 }
