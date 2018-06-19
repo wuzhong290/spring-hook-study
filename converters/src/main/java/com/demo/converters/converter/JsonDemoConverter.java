@@ -78,6 +78,7 @@ public class JsonDemoConverter extends AbstractHttpMessageConverter<Object> impl
         return super.canWrite(clazz, mediaType);
     }
 
+    @Override
     public void write(Object t, //
                       Type type, //
                       MediaType contentType, //

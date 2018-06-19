@@ -23,7 +23,6 @@ public class DefaultArgumentStrategy implements ResolveArgumentStrategy {
                 buffer.append(line);
             }
         } catch (IOException e) {
-            LOG.error(e.getMessage());
         }
         return buffer.toString();
     }
