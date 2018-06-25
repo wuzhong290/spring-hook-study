@@ -47,6 +47,11 @@
                 <value>DisableCircularReferenceDetect</value>
             </array>
         </property>
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json</value>
+            </list>
+        </property>
     </bean>
 
     <bean id="demo" class="com.demo.converters.converter.JsonDemoConverter"/>
