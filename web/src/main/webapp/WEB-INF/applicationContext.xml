@@ -11,7 +11,10 @@
         http://www.springframework.org/schema/context/spring-context-4.3.xsd">
  
     <context:component-scan base-package="com.demo" />
-
+    <mvc:interceptors>
+        <bean class="com.demo.handlerInterceptor.DemoHandlerInterceptor"/>
+        <bean class="com.demo.aop.monitor.ThreadProfileInterceptor"/>
+    </mvc:interceptors>
     <!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
     <mvc:annotation-driven>
         <mvc:message-converters>

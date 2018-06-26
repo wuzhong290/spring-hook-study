@@ -7,4 +7,13 @@
         http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!--service接口调用拦截器-->
+    <bean id="serviceMethodInterceptor" class="com.demo.aop.monitor.interceptor.MethodProfileInterceptor">
+    </bean>
+    <aop:config>
+        <aop:pointcut id="serviceMethodPoint"
+                      expression="(execution(* com.demo.*.service.*.*(..))) or (execution(* com.demo.*.controller.*.*(..)))) "/>
+        <aop:advisor pointcut-ref="serviceMethodPoint" advice-ref="serviceMethodInterceptor"/>
+    </aop:config>
 </beans>
