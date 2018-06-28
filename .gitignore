@@ -20,3 +20,4 @@ messageSource/target/
 mock/target/
 methodInterceptor/target/
 javaBase/target/
+rest/target/

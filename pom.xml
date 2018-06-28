@@ -17,6 +17,11 @@
         <dependencies>
             <dependency>
                 <groupId>com.spring.hooks</groupId>
+                <artifactId>rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spring.hooks</groupId>
                 <artifactId>aop</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -355,6 +360,7 @@
         <module>multipart</module>
         <module>aop</module>
         <module>javaBase</module>
+        <module>rest</module>
     </modules>
 
 </project>

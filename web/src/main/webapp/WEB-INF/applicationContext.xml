@@ -24,10 +24,12 @@
         </mvc:message-converters>
         <mvc:argument-resolvers>
             <bean class="com.demo.resolvers.argumentResolver.JsonMethodArgumentResolver"/>
+            <bean class="com.demo.rest.resolver.GzipMethodArgumentResolver"/>
         </mvc:argument-resolvers>
         <mvc:return-value-handlers>
             <bean class="io.jmnarloch.spring.boot.rxjava.mvc.ObservableReturnValueHandler"/>
             <bean class="io.jmnarloch.spring.boot.rxjava.mvc.SingleReturnValueHandler"/>
+            <bean class="com.demo.rest.resolver.GzipMethodReturnValueHandler"/>
         </mvc:return-value-handlers>
     </mvc:annotation-driven>
 

@@ -1,0 +1,42 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- com.demo.rest template -->
+    <bean id="httpClient" class="com.demo.rest.HttpClientsFactory">
+        <property name="connectionRequestTimeout" value="6000"/>
+        <property name="socketTimeout" value="1900"/>
+        <property name="connectionTimeout" value="6000"/>
+        <property name="maxTotal" value="200"/>
+        <property name="defaultMaxPerRoute" value="100"/>
+    </bean>
+    <bean id="clientHttpRequestFactory"
+          class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+        <constructor-arg ref="httpClient"/>
+    </bean>
+    <bean id="errorHandler" class="com.demo.rest.client.RestClientErrorHandler"/>
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="clientHttpRequestFactory"/>
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <constructor-arg value="UTF-8" index="0"/>
+                    <property name="supportedMediaTypes">
+                     <list>
+                        <value>text/plain;charset=UTF-8</value>
+                		<value>text/html;charset=UTF-8</value>
+                		<value>text/xml;charset=GBK</value>
+                     </list>
+                  </property>
+                </bean>
+                <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
+                <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                    <property name="supportedMediaTypes" value="application/json;charset=UTF-8"/>
+                </bean>
+            </list>
+        </property>
+        <property name="errorHandler" ref="errorHandler"/>
+    </bean>
+</beans>
