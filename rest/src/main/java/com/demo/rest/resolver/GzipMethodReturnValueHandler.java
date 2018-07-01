@@ -38,6 +38,6 @@ public class GzipMethodReturnValueHandler  implements HandlerMethodReturnValueHa
         }else{
             IOUtils.write(JSON.toJSONString(returnValue), gzipOutputStream, StandardCharsets.UTF_8.name());
         }
-        gzipOutputStream.finish();
+        gzipOutputStream.close();
     }
 }
