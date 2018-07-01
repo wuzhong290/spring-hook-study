@@ -11,9 +11,9 @@
     <!--service接口调用拦截器-->
     <bean id="serviceMethodInterceptor" class="com.demo.aop.monitor.interceptor.MethodProfileInterceptor">
     </bean>
-    <aop:config>
+    <!--aop:config>
         <aop:pointcut id="serviceMethodPoint"
                       expression="(execution(* com.demo.*.service.*.*(..))) or (execution(* com.demo.*.controller.*.*(..)))) "/>
         <aop:advisor pointcut-ref="serviceMethodPoint" advice-ref="serviceMethodInterceptor"/>
-    </aop:config>
+    </aop:config-->
 </beans>
