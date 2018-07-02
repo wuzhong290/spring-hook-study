@@ -62,11 +62,14 @@ public class MaxHeapSort {
     private static void nodeBuildHeap(int[] a, int lastIndex, int k) {
         //如果当前k节点的子节点存在
         while(2*k+1 <= lastIndex){
+            int left = 2*k +1;
+            int right = 2*k +2;
             //k节点的左子节点索引
-            int biggerIndex = 2*k+1;
+            int biggerIndex = left;
             //表示k节点存在右节点
-            if(biggerIndex < lastIndex && a[biggerIndex] < a[biggerIndex+1]){
-                biggerIndex++;//biggerIndex总是记录较大子节点的索引
+            if(right <= lastIndex && a[left] < a[right]){
+                //biggerIndex总是记录较大子节点的索引
+                biggerIndex = right;
             }
             //如果k节点的值小于较大子节点的值，则交换它们的值，并将biggerIndex赋值给k，开始下一次循环
             if(a[k] < a[biggerIndex]){
