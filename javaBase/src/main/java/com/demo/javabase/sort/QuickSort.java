@@ -67,11 +67,11 @@ public class QuickSort {
         int key = a[ low ];
         //4，完成一趟排序
         while( i< j) {
-            //4.1 ，从右往左找到第一个小于key的数
+            //4.1 ，从右往左找到第一个大于key的数
             while(i<j && a[j] < key){
                 j--;
             }
-            // 4.2 从左往右找到第一个大于key的数
+            // 4.2 从左往右找到第一个小于key的数
             while( i<j && a[i] >= key) {
                 i++;
             }
