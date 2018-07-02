@@ -12,16 +12,12 @@ public class QuickSort {
 
     public static void quickSort(int[] a) {
         if(a.length>0) {
-            //quickSortMinToMax(a, 0 , a.length-1);
+            quickSortMinToMax(a, 0 , a.length-1);
             quickSortMaxToMin(a, 0 , a.length-1);
         }
     }
 
     private static void quickSortMinToMax(int[] a, int low, int high) {
-        //1,找到递归算法的出口
-        if( low > high) {
-            return;
-        }
         //2, 存
         int i = low;
         int j = high;
@@ -39,27 +35,27 @@ public class QuickSort {
             }
             //4.3 交换
             if(i<j) {
-                int p = a[i];
-                a[i] = a[j];
-                a[j] = p;
+                a[i] = a[i]^a[j];
+                a[j] = a[i]^a[j];
+                a[i] = a[i]^a[j];
             }
         }
-        // 4.4，调整key的位置
-        int p = a[i];
-        a[i] = a[low];
-        a[low] = p;
-        //5, 对key左边的数快排
-        quickSortMinToMax(a, low, i-1 );
-        //6, 对key右边的数快排
-        quickSortMinToMax(a, i+1, high);
+        if(low < i){
+            // 4.4，调整key的位置
+            a[low] = a[low]^a[i];
+            a[i] = a[low]^a[i];
+            a[low] = a[low]^a[i];
+            //5, 对key左边的数快排
+            quickSortMinToMax(a, low, i-1);
+        }
+        if(i < high){
+            //6, 对key右边的数快排
+            quickSortMinToMax(a, i+1, high);
+        }
     }
 
 
     private static void quickSortMaxToMin(int[] a, int low, int high) {
-        //1,找到递归算法的出口
-        if( low > high) {
-            return;
-        }
         //2, 存
         int i = low;
         int j = high;
@@ -77,18 +73,22 @@ public class QuickSort {
             }
             //4.3 交换
             if(i<j) {
-                int p = a[i];
-                a[i] = a[j];
-                a[j] = p;
+                a[i] = a[i]^a[j];
+                a[j] = a[i]^a[j];
+                a[i] = a[i]^a[j];
             }
         }
-        // 4.4，调整key的位置
-        int p = a[i];
-        a[i] = a[low];
-        a[low] = p;
-        //5, 对key左边的数快排
-        quickSortMaxToMin(a, low, i-1 );
-        //6, 对key右边的数快排
-        quickSortMaxToMin(a, i+1, high);
+        if(low < i){
+            // 4.4，调整key的位置
+            a[low] = a[low]^a[i];
+            a[i] = a[low]^a[i];
+            a[low] = a[low]^a[i];
+            //5, 对key左边的数快排
+            quickSortMaxToMin(a, low, i-1);
+        }
+        if(i < high){
+            //6, 对key右边的数快排
+            quickSortMaxToMin(a, i+1, high);
+        }
     }
 }
