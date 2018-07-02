@@ -10,6 +10,7 @@ public class MinHeapSort {
      　　情形1：ki <= k2i 且ki <= k2i+1 （最小化堆或小顶堆）
      　　情形2：ki >= k2i 且ki >= k2i+1 （最大化堆或大顶堆）
      一般用数组来表示堆，若根结点存在序号0处，
+     (lastIndex-1)/2表示最后一个非叶子节点
      i结点的父结点下标就为(i-1)/2。
      i结点的左右子结点下标分别为2*i+1和2*i+2。
      */
@@ -66,9 +67,9 @@ public class MinHeapSort {
             int biggerIndex = 2*k+1;
             //表示k节点存在右节点
             if(biggerIndex < lastIndex && a[biggerIndex] > a[biggerIndex+1]){
-                biggerIndex++;//biggerIndex总是记录较大子节点的索引
+                biggerIndex++;//biggerIndex总是记录较小子节点的索引
             }
-            //如果k节点的值小于较大子节点的值，则交换它们的值，并将biggerIndex赋值给k，开始下一次循环
+            //如果k节点的值小于较小子节点的值，则交换它们的值，并将biggerIndex赋值给k，开始下一次循环
             if(a[k] > a[biggerIndex]){
                 //保证k节点的值大于其子节点的值
                 swap(a,k,biggerIndex);
