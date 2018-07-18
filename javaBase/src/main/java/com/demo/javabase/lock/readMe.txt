@@ -1,0 +1,4 @@
+Condition与ReentrantLock搭配起来，能够实现比Synchronized关键字与Object.wait/notify的组合更精确地对线程的控制。
+Object.wait/notify是以“锁”为单位对线程进行阻塞唤醒，
+而Condition则是以“线程”为单位，对线程进行阻塞与唤醒的。
+所以Condition能够唤醒某个特定的阻塞线程。而Object.notify则不可以。

@@ -12,9 +12,15 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <druid_version>1.1.10</druid_version>
     </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.spring.hooks</groupId>
+                <artifactId>druid</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.spring.hooks</groupId>
                 <artifactId>rest</artifactId>
@@ -311,6 +317,16 @@
                 <artifactId>woodstox-core-asl</artifactId>
                 <version>4.4.1</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.15</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -361,6 +377,8 @@
         <module>aop</module>
         <module>javaBase</module>
         <module>rest</module>
+        <module>zk</module>
+        <module>druid</module>
     </modules>
 
 </project>
