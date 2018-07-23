@@ -33,6 +33,12 @@
         </mvc:return-value-handlers>
     </mvc:annotation-driven>
 
+    <!-- 对静态资源文件的访问， 将无法mapping到Controller的path交给default servlet handler处理 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- 定义无Controller的path<->view直接映射 -->
+    <mvc:view-controller path="/" view-name="redirect:/"/>
+
     <!--字符串转换器-->
     <bean id="stringConverter"
           class="org.springframework.http.converter.StringHttpMessageConverter">
