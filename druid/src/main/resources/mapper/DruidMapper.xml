@@ -10,4 +10,17 @@
     <select id="selectAll" resultType="com.demo.druid.model.Country">
       select * from country
     </select>
+    <update id="updateCountrynameById" parameterType="map" >
+        update country
+        <set>
+          <if test="countryname != null" >
+              countryname = #{countryname,jdbcType=VARCHAR}
+          </if>
+        </set>
+        <if test="_parameter != null" >
+            <where>
+                id= #{id,jdbcType=INTEGER}
+            </where>
+        </if>
+    </update>
 </mapper>

@@ -29,4 +29,8 @@ public class DruidService {
         Country country = jdbcTemplateDruid.queryForObject("select * from country where id = :id", new BeanPropertyRowMapper<Country>(Country.class), id);
         return country;
     }
+
+    public int updateCountrynameById(String countryname, int id) {
+        return  druidMapper.updateCountrynameById(countryname, id);
+    }
 }

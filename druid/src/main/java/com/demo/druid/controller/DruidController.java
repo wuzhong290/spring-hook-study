@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -24,6 +25,12 @@ public class DruidController {
     @RequestMapping(value = {"/", "index.html"})
     public String index() {
         return "index";
+    }
+
+    @ResponseBody
+    @RequestMapping("requestUpdate")
+    public int requestUpdate(@RequestParam String countryname, @RequestParam int id) {
+        return druidService.updateCountrynameById(countryname, id);
     }
 
     @ResponseBody
