@@ -24,10 +24,17 @@ public class Test {
         prize2.setPrizeID("2");
         prize2.setLimit(0);
         prize2.setStock(4);
-        prize2.setProbability(0);
+        prize2.setProbability(0.5f);
         prize2.setPrizeName("2222222");
-        prize.add(prize1);
+        T_Prize prize3 = new T_Prize();
+        prize3.setPrizeID("2");
+        prize3.setLimit(0);
+        prize3.setStock(4);
+        prize3.setProbability(0.5f);
+        prize3.setPrizeName("2222222");
         prize.add(prize2);
+        prize.add(prize3);
+        prize.add(prize1);
         if ((prize != null) && (prize.size() > 0))
         {
             int pCount = prize.size();
