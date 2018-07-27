@@ -9,5 +9,6 @@ public interface DruidMapper {
     Country selectById(int id);
 
     int updateCountrynameById(@Param("countryname") String countryname, @Param("id")int id);
+
     List<Country> selectAll();
 }
