@@ -48,5 +48,7 @@
         <property name="basePackage" value="com.demo.druid.mapper"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory_druid" />
     </bean>
-
+    <bean id="sqlSession_druid" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory_druid"/>
+    </bean>
 </beans>

@@ -16,7 +16,8 @@
         <bean class="com.demo.aop.monitor.ThreadProfileInterceptor"/>
     </mvc:interceptors>
     <!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
-    <mvc:annotation-driven>
+    <!-- 第三步：注册处理器映射器/处理器适配器 ，添加conversion-service属性-->
+    <mvc:annotation-driven conversion-service="conversionService">
         <mvc:message-converters>
             <ref bean="stringConverter" />
             <ref bean="demo" />

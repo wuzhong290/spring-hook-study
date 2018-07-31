@@ -11,4 +11,31 @@
     <bean class="com.demo.lifecycle.beanPostProcessor.DemoBeanPostProcessor"/>
 
     <bean class="com.demo.lifecycle.beanFactoryPostProcessor.DemoBeanFactoryPostProcessor"/>
+
+
+    <!--①配置自动注册属性编辑器的CustomEditorConfigurer -->
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <entry key="com.demo.lifecycle.propertyeditor.Car" value="com.demo.lifecycle.propertyeditor.CustomCarEditor"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="boss" class="com.demo.lifecycle.propertyeditor.Boss">
+        <property name="name" value="John"/>
+        <!--③该属性将使用②处的属性编辑器完成属性填充操作-->
+        <property name="car" value="红旗CA72,200,20000.00"/>
+        <property name="date" value="2018-06-20"/>
+    </bean>
+
+    <!-- 第二步： 创建convertion-Service ，并注入dateConvert-->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="dateConvert"/>
+            </set>
+        </property>
+    </bean>
+    <!-- 第一步:  创建自定义日期转换规则 -->
+    <bean id="dateConvert" class="com.demo.lifecycle.converter.DateConvert"/>
 </beans>

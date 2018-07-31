@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
+
 /**
  * Created by thinkpad on 2017/5/24.
  * url:http://localhost:8080/demo/person
@@ -23,5 +25,12 @@ public class DemoController {
     @ResponseBody
     public Person getStudentInfo(@RequestBody Person person) {
         return person;
+    }
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public String test(Date birthday){
+        System.out.println(birthday);
+        return "index";
     }
 }
