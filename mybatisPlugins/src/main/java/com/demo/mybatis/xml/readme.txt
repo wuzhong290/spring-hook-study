@@ -1,5 +1,21 @@
 mybatis的xml解析例子，以后可以使用XPathParser类进行解析
 
+
+下面列出了最有用的路径表达式：
+表达式	描述
+nodename	选取此节点的所有子节点。
+/	从根节点选取。
+//	从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置。
+.	选取当前节点。
+..	选取当前节点的父节点。
+@	选取属性。
+XPath 通配符可用来选取未知的 XML 元素。
+通配符	描述
+*	匹配任何元素节点。
+@*	匹配任何属性节点。
+node()	匹配任何类型的节点。
+
+
 参考例子
 EntityResolver XMLMapperEntityResolver
 org/apache/ibatis/builder/xml/mybatis-3-config.dtd
