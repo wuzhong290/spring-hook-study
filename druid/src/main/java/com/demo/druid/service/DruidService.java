@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -21,6 +22,7 @@ public class DruidService {
     @Resource(name = "jdbcTemplate_druid")
     private JdbcTemplate jdbcTemplateDruid;
 
+    @Transactional
     public Country selectById(int id) {
         return druidMapper.selectById(id);
     }
