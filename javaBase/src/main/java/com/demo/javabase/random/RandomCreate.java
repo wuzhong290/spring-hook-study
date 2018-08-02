@@ -58,7 +58,7 @@ public class RandomCreate {
 
     public static void main(String[] args) {
         RandomCreate randomCreate = new Builder()
-                .randomLen(3)
+                .randomLen(6)
                 .index(0)
                 .callback(new RandomCallbackImpl())
                 .build();
