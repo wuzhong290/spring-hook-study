@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:applicationContext-druid.xml"})
 public class TestDruid {
@@ -18,6 +21,7 @@ public class TestDruid {
     private RandomNumMapper randomNumMapper;
     @Test
     public void testRandomCreate(){
+        List<RandomNum> randomNums = new ArrayList<>();
         RandomCreate randomCreate = new RandomCreate.Builder()
                 .randomLen(6)
                 .index(0)
@@ -26,10 +30,18 @@ public class TestDruid {
                     public void doCallBack(String random, int index) {
                         RandomNum randomNum =  new RandomNum();
                         randomNum.setRandomNum(Integer.valueOf(random));
-                        randomNumMapper.insertRandomNum(randomNum);
+                        randomNums.add(randomNum);
+                        if(randomNums.size()==500){
+                            randomNumMapper.insertRandomNums(randomNums);
+                            randomNums.clear();
+                        }
                     }
                 })
                 .build();
         randomCreate.createRandom("",1,1);
+        if(randomNums.size()>0){
+            randomNumMapper.insertRandomNums(randomNums);
+            randomNums.clear();
+        }
     }
 }

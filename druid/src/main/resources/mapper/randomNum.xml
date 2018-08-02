@@ -7,13 +7,20 @@
   </resultMap>
 
   <select id="selectRandomNum" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-      select id,random_num from random_num  where id = #{id,jdbcType=INTEGER}
+      select id,random_num from random_num_temp  where id = #{id,jdbcType=INTEGER}
   </select>
 
   <insert id="insertRandomNum"  parameterType="com.demo.druid.model.RandomNum">
-    Insert into random_num(random_num) VALUES (#{randomNum,jdbcType=INTEGER})
+    Insert into random_num_temp(random_num) VALUES (#{randomNum,jdbcType=INTEGER})
   </insert>
 
-
+    <insert id="insertRandomNums"  parameterType="java.util.List">
+        Insert into random_num_temp(random_num) VALUES
+        <foreach collection ="list" item="randomNum" index= "index" separator =",">
+            (
+            (#{randomNum.randomNum,jdbcType=INTEGER})
+            )
+        </foreach >
+    </insert>
 
 </mapper>
