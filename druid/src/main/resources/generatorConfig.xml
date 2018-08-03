@@ -33,7 +33,8 @@
         </javaClientGenerator>
 
         <table schema="education_jsyd" tableName="log_page" domainObjectName="LogPage" >
-            <property name="useActualColumnNames" value="true"/>
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="id" sqlStatement="MySql" identity="true" />
         </table>
 
     </context>

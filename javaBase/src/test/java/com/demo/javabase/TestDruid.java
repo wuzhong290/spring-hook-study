@@ -50,6 +50,6 @@ public class TestDruid {
     @Test
     public void testMapper(){
         LogPage logPage = logPageMapper.selectByPrimaryKey(1568015);
-        System.out.println(logPage.getCREATE_TIME());
+        System.out.println(logPage.getId());
     }
 }
