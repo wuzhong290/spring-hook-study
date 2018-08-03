@@ -1,6 +1,8 @@
 package com.demo.javabase;
 
+import com.demo.druid.mapper.LogPageMapper;
 import com.demo.druid.mapper.RandomNumMapper;
+import com.demo.druid.model.LogPage;
 import com.demo.druid.model.RandomNum;
 import com.demo.javabase.random.RandomCallback;
 import com.demo.javabase.random.RandomCreate;
@@ -16,7 +18,8 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:applicationContext-druid.xml"})
 public class TestDruid {
-
+    @Autowired
+    private LogPageMapper logPageMapper;
     @Autowired
     private RandomNumMapper randomNumMapper;
     @Test
@@ -43,5 +46,10 @@ public class TestDruid {
             randomNumMapper.insertRandomNums(randomNums);
             randomNums.clear();
         }
+    }
+    @Test
+    public void testMapper(){
+        LogPage logPage = logPageMapper.selectByPrimaryKey(1568015);
+        System.out.println(logPage.getCREATE_TIME());
     }
 }

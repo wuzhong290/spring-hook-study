@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="/tools/apache-maven-3.3.9/m2/repository/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar"/>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.11.248:21605/education_jsyd?generateSimpleParameterMetadata=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;allowMultiQueries=true"
+                        userId="developer"
+                        password="njqg_data@248">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.demo.druid.model" targetProject="\data\src">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"  targetProject="\data\src">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.demo.druid.mapper"  targetProject="\data\src">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table schema="education_jsyd" tableName="log_page" domainObjectName="LogPage" >
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>
