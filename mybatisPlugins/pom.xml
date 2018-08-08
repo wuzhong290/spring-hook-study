@@ -13,6 +13,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.spring.hooks</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>

@@ -105,11 +105,9 @@
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List" />
+    ID, PAOPID, USERID, USERIP, LAST_ACTION_ENAME, LAST_ACTION_ID, CUR_ACTION_ENAME,
+    CUR_ACTION_ID, BEFROM, CREATE_TIME
     from log_page
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
