@@ -43,8 +43,11 @@ public class OhMyEmailTest {
         OhMyEmail.subject("这是一封测试附件邮件")
                 .from("吴忠的QQ邮箱")
                 .to("wuzhong@iqiguo.com")
+                .cc("wuzhong@iqiguo.com")
                 .html("<h1 font=red>信件内容</h1>")
-                .attach(new File("E:\\奇果\\大数据工作.zip"), "大数据工作.zip")
+                //.attach(new File("E:\\奇果\\大数据工作.zip"), "大数据工作.zip")
+                //.attach(new File("E:\\奇果\\大数据工作.zip"), "江苏电信-订购转化率报表统计-2018-08-14.zip")
+                .attach(new File("E:\\奇果\\大数据工作.zip"))
                 .send();
     }
 
