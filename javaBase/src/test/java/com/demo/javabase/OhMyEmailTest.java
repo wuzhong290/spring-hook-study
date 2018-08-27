@@ -47,7 +47,7 @@ public class OhMyEmailTest {
                 .html("<h1 font=red>信件内容</h1>")
                 //.attach(new File("E:\\奇果\\大数据工作.zip"), "大数据工作.zip")
                 //.attach(new File("E:\\奇果\\大数据工作.zip"), "江苏电信-订购转化率报表统计-2018-08-14.zip")
-                .attach(new File("E:\\奇果\\大数据工作.zip"))
+                .attach(new File("E:\\奇果\\教育频道运营日报-2018-08-27.zip"))
                 .send();
     }
 

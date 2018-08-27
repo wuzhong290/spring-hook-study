@@ -1,7 +1,6 @@
 package com.demo.javabase.mail;
 
 import com.sun.mail.util.MailSSLSocketFactory;
-import com.sun.mail.util.logging.MailHandler;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
