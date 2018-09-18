@@ -17,7 +17,7 @@ public class TestDiscovery {
 
     @Test
     public void testFinder(){
-        InstanceDetails instanceDetails = serviceFinder.getService("test.zk");
+        InstanceDetails instanceDetails = serviceFinder.getService("test.zktest");
         System.out.println("");
     }
 }

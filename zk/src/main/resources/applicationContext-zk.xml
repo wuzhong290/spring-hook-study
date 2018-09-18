@@ -12,7 +12,7 @@
     </bean>
 
     <bean id="serviceDiscovery" class="com.demo.discovery.server.QGServiceDiscovery">
-        <property name="context" value="test"/>
+        <property name="context" value="spring-hook-study"/>
         <property name="port" value="8080"/>
         <property name="register" ref="serviceServerRegister"/>
     </bean>
