@@ -29,27 +29,17 @@ import java.util.Map;
  *
  */
 public class QGServiceDiscovery implements ApplicationContextAware, InitializingBean {
-
 	private final static Logger logger = LoggerFactory.getLogger(QGServiceDiscovery.class);
-
-
     //setter
 	private IRegister register;
-
 	private String context;
-	
 	private String port;
-
 	/**
 	 * 标记了 ServiceDesc.
 	 */
 	private final Map<String /* bean name*/,Object /*bean instance*/> serviceBeanMap = new HashMap<>();
-
-
 	//监听地址： 127.0.0.1:8081
 	private String listenAddress;
-
-
 	/**
 	 *  get all beans
 	 * @param applicationContext
@@ -68,37 +58,29 @@ public class QGServiceDiscovery implements ApplicationContextAware, Initializing
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-
 		this.listenAddress = LocalIp.getLocalIp() + ":" + getRealPort();
-
 		for (Object bean: serviceBeanMap.values()) {
-
-			//获取service serviceType 如果有YHService的标签，则取标签的值，否则取context
+			//获取service serviceType 如果有ServiceDesc的标签，则取标签的值，否则取context
 			ServiceDesc annotation = AnnotationUtils.findAnnotation(bean.getClass(), ServiceDesc.class);
 			String serviceType =  getServiceDescValue(annotation, this.context);
 
 			//获取controller上的request mapping. @RequestMapping("/value")
 			RequestMapping classRequestMappingAnno = AnnotationUtils.findAnnotation(bean.getClass(), RequestMapping.class);
-			String class_path = getPath(classRequestMappingAnno);
+			String controllerPath = getPath(classRequestMappingAnno);
 
 			//获取每一个方法上的request mapping的value，可能为空
 			Method[] methods = ReflectionUtils.getAllDeclaredMethods(bean.getClass());
 			for(Method method : methods){
-				RequestMapping method_requestMappingAnno = method.getAnnotation(RequestMapping.class);
-				   if(method_requestMappingAnno != null) {
-					   String method_path = getPath(method_requestMappingAnno);
-
-					   //method name. 如果有YHService的标签，则取标签的值，否则取方法名字
-					   ServiceDesc method_anno = method.getAnnotation(ServiceDesc.class);
-					   String methodName = getServiceDescValue(method_anno, method.getName());
-
-					   this.register.register(this.context, this.listenAddress, serviceType, methodName, method_path, class_path, method_anno);
+				RequestMapping methodRequestMappingAnno = method.getAnnotation(RequestMapping.class);
+				   if(methodRequestMappingAnno != null) {
+					   String methodPath = getPath(methodRequestMappingAnno);
+					   //method name. 如果有ServiceDesc的标签，则取标签的值，否则取方法名字
+					   ServiceDesc methodAnnotation = method.getAnnotation(ServiceDesc.class);
+					   String methodName = getServiceDescValue(methodAnnotation, method.getName());
+					   this.register.register(this.context, this.listenAddress, serviceType, methodName, methodPath, controllerPath, methodAnnotation);
 				   }
-
 			}
-
 			logger.info("Register all service for controller:{} success",bean );
-
 		}
 
 	}
