@@ -16,4 +16,17 @@
         <property name="port" value="8080"/>
         <property name="register" ref="serviceServerRegister"/>
     </bean>
+
+    <bean id="roundRobinLocalFirstStrategy" class="com.demo.discovery.client.strategy.RoundRobinLocalFirstStrategy"/>
+
+    <!-- zookeeper -->
+    <bean id="curatorXDiscoveryClientWrapper"
+          class="com.demo.discovery.client.finder.CuratorXDiscoveryClientWrapper" destroy-method="close">
+        <constructor-arg name="client" ref="curatorFramework"/>
+        <constructor-arg name="basePath" value="/qg/services"/>
+    </bean>
+    <bean id="zkFinder" class="com.demo.discovery.client.finder.ZookeeperFinder">
+        <property name="strategry" ref="roundRobinLocalFirstStrategy"/>
+        <property name="curatorXDiscoveryClientWrapper" ref="curatorXDiscoveryClientWrapper"/>
+    </bean>
 </beans>
