@@ -29,4 +29,9 @@
         <property name="strategry" ref="roundRobinLocalFirstStrategy"/>
         <property name="curatorXDiscoveryClientWrapper" ref="curatorXDiscoveryClientWrapper"/>
     </bean>
+
+    <bean id="core-config-register"
+          class="com.demo.config.ConfigMangerRegister" init-method="start">
+        <constructor-arg name="client" ref="curatorFramework"/>
+    </bean>
 </beans>

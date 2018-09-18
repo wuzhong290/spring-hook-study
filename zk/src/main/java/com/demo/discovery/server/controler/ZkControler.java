@@ -2,6 +2,7 @@ package com.demo.discovery.server.controler;
 
 import com.demo.aop.monitor.ThreadProfileInterceptor;
 import com.demo.discovery.client.finder.ServiceFinder;
+import com.demo.discovery.server.annotation.ServiceDesc;
 import com.demo.discovery.server.model.InstanceDetails;
 import com.demo.hystrix.AsyncFuture;
 import com.demo.hystrix.HytrixGetCommand;
@@ -16,6 +17,7 @@ import java.util.concurrent.Future;
 
 @Controller
 @RequestMapping("/zk")
+@ServiceDesc("zkRest")
 public class ZkControler {
 
     @Autowired
@@ -27,14 +29,14 @@ public class ZkControler {
     @RequestMapping("/zktest")
     @ResponseBody
     public String zktest() {
-        InstanceDetails instanceDetails = serviceFinder.getService("spring-hook-study.zktest");
+        InstanceDetails instanceDetails = serviceFinder.getService("zkRest.zktest");
         System.out.println("");
         return "zktest";
     }
     @RequestMapping("/zkHytrix")
     @ResponseBody
     public String zkHytrix() {
-        InstanceDetails instanceDetails = serviceFinder.getService("spring-hook-study.zktest");
+        InstanceDetails instanceDetails = serviceFinder.getService("zkRest.zktest");
         HytrixGetCommand<String> command = new HytrixGetCommand<>(restTemplate, instanceDetails.getRequestUrl(), instanceDetails.getServiceName(), null, String.class);
         command.setFallback(null);
         command.setAudit(serviceCallAudit);
