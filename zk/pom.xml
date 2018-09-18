@@ -13,6 +13,14 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.spring.hooks</groupId>
+            <artifactId>aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.spring.hooks</groupId>
+            <artifactId>rest</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
@@ -124,6 +132,15 @@
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-examples</artifactId>
             <version>4.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
         </dependency>
         <dependency>
             <groupId>commons-configuration</groupId>
