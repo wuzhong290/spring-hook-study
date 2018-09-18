@@ -13,6 +13,10 @@
     <dependencies>
         <dependency>
             <groupId>com.spring.hooks</groupId>
+            <artifactId>zk</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.spring.hooks</groupId>
             <artifactId>druid</artifactId>
         </dependency>
         <dependency>

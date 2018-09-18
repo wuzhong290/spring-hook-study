@@ -18,6 +18,11 @@
         <dependencies>
             <dependency>
                 <groupId>com.spring.hooks</groupId>
+                <artifactId>zk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spring.hooks</groupId>
                 <artifactId>druid</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -210,13 +215,13 @@
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
-                <version>3.2.6</version>
+                <version>3.3.0</version>
             </dependency>
             <!-- mybatis/spring包 -->
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis-spring</artifactId>
-                <version>1.2.2</version>
+                <version>1.2.3</version>
             </dependency>
             <!-- 导入Mysql数据库链接jar包 -->
             <dependency>
@@ -244,17 +249,6 @@
                 <version>2.2.9</version>
             </dependency>
 
-            <!--Mybatis-->
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>3.2.8</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis-spring</artifactId>
-                <version>1.2.2</version>
-            </dependency>
             <dependency>
                 <groupId>com.github.jsqlparser</groupId>
                 <artifactId>jsqlparser</artifactId>
