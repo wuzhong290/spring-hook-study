@@ -7,6 +7,7 @@ import com.demo.statistics.ServiceCallAudit;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandKey;
+import com.netflix.hystrix.HystrixCommandProperties;
 import com.netflix.hystrix.exception.HystrixBadRequestException;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -64,6 +65,13 @@ public abstract class HytrixBaseCommand<T> extends HystrixCommand<T> {
          */
         super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey(serviceName.split("\\.", 2)[0]))
                 .andCommandKey(HystrixCommandKey.Factory.asKey(serviceName))
+                .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withCircuitBreakerEnabled(true)
+                        .withMetricsRollingStatisticalWindowInMilliseconds(10000)
+                        .withMetricsRollingStatisticalWindowBuckets(10)
+                        .withCircuitBreakerRequestVolumeThreshold(1)
+                        .withCircuitBreakerErrorThresholdPercentage(60)
+                        .withExecutionTimeoutInMilliseconds(500)
+                        .withCircuitBreakerSleepWindowInMilliseconds(30000))
         );
 
         this.url = url;
@@ -113,7 +121,6 @@ public abstract class HytrixBaseCommand<T> extends HystrixCommand<T> {
      */
     @Override
     protected T run() throws Exception {
-
         /*** 1. 先找出服务地址, 是否降级等信息 **/
         boolean degrade = false;
         String path = this.url;
@@ -136,7 +143,6 @@ public abstract class HytrixBaseCommand<T> extends HystrixCommand<T> {
             return this.fallback;
         }
 
-
         /*** 3. 发起调用**/
         //额外的消息头，用来传递原始的消息
         long start = System.currentTimeMillis();
@@ -152,13 +158,14 @@ public abstract class HytrixBaseCommand<T> extends HystrixCommand<T> {
         } catch (Exception e) {
              //audit service call failed
             audit.auditFailed(this.serviceName, this.srcServiceName, path, e);
-
-            if (e instanceof Exception) {
-                throw new HystrixBadRequestException(e.getMessage(), e);
-            } else {
-                log.warn("call service:{} at url:{}  failed with exception.", serviceName, path, e);
-                throw e;
-            }
+            //throw new HystrixBadRequestException(e.getMessage(), e)异常是不触发熔断机制的
+            throw e;
+//            if (e instanceof Exception) {
+//                throw new HystrixBadRequestException(e.getMessage(), e);
+//            } else {
+//                log.warn("call service:{} at url:{}  failed with exception.", serviceName, path, e);
+//                throw e;
+//            }
         }
         return t;
     }

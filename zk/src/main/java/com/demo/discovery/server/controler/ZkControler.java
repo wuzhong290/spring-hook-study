@@ -10,6 +10,7 @@ import com.demo.statistics.ServiceCallAudit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,10 +36,10 @@ public class ZkControler {
     }
     @RequestMapping("/zkHytrix")
     @ResponseBody
-    public String zkHytrix() {
+    public String zkHytrix(@RequestParam String a) {
         InstanceDetails instanceDetails = serviceFinder.getService("zkRest.zktest");
-        HytrixGetCommand<String> command = new HytrixGetCommand<>(restTemplate, instanceDetails.getRequestUrl(), instanceDetails.getServiceName(), null, String.class);
-        command.setFallback(null);
+        HytrixGetCommand<String> command = new HytrixGetCommand<>(restTemplate, instanceDetails.getRequestUrl() + a, instanceDetails.getServiceName(), null, String.class);
+        command.setFallback("Fallback");
         command.setAudit(serviceCallAudit);
         command.setSrcServiceName(ThreadProfileInterceptor.getServiceName());
         Future<String> future = command.queue();
