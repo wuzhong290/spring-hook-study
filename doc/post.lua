@@ -95,21 +95,22 @@ local function init_form_args()
 				    	table.insert(keys,k)
 				    end
 				end      	
-    	  ngx.say("args:", cjson.encode(args))
+    	  --ngx.say(cjson.encode(args))
     	  table.sort(keys)
 				for key,value in pairs(keys) do  
 				    sign_str =sign_str .. value;
-				    ngx.say("key:", key,",value:", value) 
+				    --ngx.say("key:", key,",value:", value) 
 				end 
-				ngx.say("sign_str:", sign_str)
+				--ngx.say("sign_str:", sign_str)
 				local sign_str_base64 =ngx.encode_base64(sign_str)
-				ngx.say("sign_str_base64:", sign_str_base64)
-				ngx.say("sign_str:", ngx.decode_base64(sign_str_base64))       
+				--ngx.say("sign_str_base64:", sign_str_base64)
+				--ngx.say("sign_str:", ngx.decode_base64(sign_str_base64))       
 				local ok = md5:update(sign_str)
 				local result = md5:final()	
 				local str = require "resty.string"			
-				ngx.say("result:", str.to_hex(result)) 	     
+				ngx.say(str.to_hex(result))      
     end
   end
 end
+--ngx.header.content_type = "application/json"
 init_form_args()
