@@ -5,9 +5,9 @@ Redis ={}
 function Redis:new(datasource)
     local o={}
     o.datasource = datasource or {
-        host = "192.168.11.248",
-        port = "6380",
-        auth = "NJqg_redis@248",
+        host = "127.0.0.1",
+        port = "6379",
+        auth = "self_redis@127",
         timeout = 3000,
         max_idle_timeout = 60000,
         pool_size = 1000
