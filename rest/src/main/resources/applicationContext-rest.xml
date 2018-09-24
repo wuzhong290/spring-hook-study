@@ -38,5 +38,10 @@
             </list>
         </property>
         <property name="errorHandler" ref="errorHandler"/>
+        <property name="interceptors">
+            <list>
+                <bean class="com.demo.rest.interceptor.ActionTrackInterceptor"/>
+            </list>
+        </property>
     </bean>
 </beans>

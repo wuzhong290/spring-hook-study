@@ -20,4 +20,10 @@ public class TestRest {
         Map m = restTemplate.getForObject("https://localhost/getSign?AccessKey=access&home=world&name=hello&work=java&timestamp=now&nonce=random", Map.class);
         System.out.println("");
     }
+
+    @Test
+    public void testSeeReqInfo(){
+        String res = restTemplate.getForObject("http://localhost:28080/see_req_info", String.class);
+        System.out.println(res);
+    }
 }
