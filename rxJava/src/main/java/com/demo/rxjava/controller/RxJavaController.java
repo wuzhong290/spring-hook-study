@@ -4,8 +4,7 @@ import com.alibaba.fastjson.annotation.JSONCreator;
 import com.demo.rxjava.model.EventDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.jmnarloch.spring.boot.rxjava.async.ObservableSseEmitter;
-import io.reactivex.Observable;
-import io.reactivex.Single;
+import io.reactivex.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,16 +23,24 @@ public class RxJavaController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/invoices")
     public Observable<Invoice> getInvoices() {
-
-        return Observable.just(
-                new Invoice("Acme", new Date()),
-                new Invoice("Oceanic", new Date())
-        );
+        return Observable.wrap(new ObservableSource<Invoice>() {
+            @Override
+            public void subscribe(Observer<? super Invoice> observer) {
+                observer.onNext(new Invoice("Acme", new Date()));
+                observer.onNext(new Invoice("Oceanic", new Date()));
+                observer.onComplete();
+            }
+        });
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/single")
     public Single<String> single() {
-        return Single.just("single value");
+        return Single.wrap(new SingleSource<String>() {
+            @Override
+            public void subscribe(SingleObserver<? super String> observer) {
+                observer.onSuccess("single value");
+            }
+        });
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/sse")
