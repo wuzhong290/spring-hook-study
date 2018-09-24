@@ -8,7 +8,10 @@ import io.reactivex.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -50,7 +53,31 @@ public class RxJavaController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/messages")
     public ObservableSseEmitter<String> messages() {
-        return new ObservableSseEmitter<String>(Observable.just("message 1", "message 2", "message 3"));
+        return new ObservableSseEmitter<String>(Observable.wrap(new ObservableSource<String>() {
+            @Override
+            public void subscribe(Observer<? super String> observer) {
+                observer.onNext("message 1");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                observer.onNext("message 2");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                observer.onNext("message 3");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                observer.onNext("message 4");
+                observer.onComplete();
+            }
+        }));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/events")
@@ -59,6 +86,24 @@ public class RxJavaController {
                 new EventDto("Spring.io", getDate(2016, 5, 11)),
                 new EventDto("JavaOne", getDate(2016, 9, 22))
         ));
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/download")
+    public StreamingResponseBody handle() {
+        return new StreamingResponseBody() {
+            @Override
+            public void writeTo(OutputStream outputStream) throws IOException {
+                outputStream.write("11111111111111111111".getBytes());
+                outputStream.flush();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                outputStream.write("2222222222222222222".getBytes());
+                outputStream.flush();
+                outputStream.close();
+            }
+        };
     }
 
     private static Date getDate(int year, int month, int day) {
