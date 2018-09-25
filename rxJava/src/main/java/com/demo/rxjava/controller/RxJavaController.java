@@ -1,8 +1,10 @@
 package com.demo.rxjava.controller;
 
 import com.alibaba.fastjson.annotation.JSONCreator;
+import com.demo.rxjava.CreateExecutorService;
 import com.demo.rxjava.model.EventDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.jmnarloch.spring.boot.rxjava.async.ObservableDeferredResult;
 import io.jmnarloch.spring.boot.rxjava.async.ObservableSseEmitter;
 import io.reactivex.*;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +37,32 @@ public class RxJavaController {
             }
         });
     }
+    @RequestMapping(method = RequestMethod.GET, value = "/getTimeoutInvoices")
+    public ObservableDeferredResult<Invoice> getTimeoutInvoices() {
+        return new ObservableDeferredResult<Invoice>(100L,new Invoice("timeout", new Date()), Observable.wrap(new ObservableSource<Invoice>() {
+            @Override
+            public void subscribe(Observer<? super Invoice> observer) {
+                //handlerResult执行必须放到另外一个线程里面，否则ObservableDeferredResult对象实例化就卡在那里了
+                handlerResult(observer);
+            }
+        }));
+    }
+
+    private void handlerResult(Observer<? super Invoice> observer) {
+        CreateExecutorService.getInstance().submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                observer.onNext(new Invoice("Acme", new Date()));
+                observer.onNext(new Invoice("Oceanic", new Date()));
+                observer.onComplete();
+            }
+        });
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/single")
     public Single<String> single() {
@@ -53,9 +81,23 @@ public class RxJavaController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/messages")
     public ObservableSseEmitter<String> messages() {
-        return new ObservableSseEmitter<String>(Observable.wrap(new ObservableSource<String>() {
+        return new ObservableSseEmitter<String>(100L, null, Observable.wrap(new ObservableSource<String>() {
             @Override
             public void subscribe(Observer<? super String> observer) {
+                handleEmitter(observer);
+            }
+        }));
+    }
+
+    private void handleEmitter(Observer<? super String> observer) {
+        CreateExecutorService.getInstance().submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 observer.onNext("message 1");
                 try {
                     Thread.sleep(1000);
@@ -77,7 +119,7 @@ public class RxJavaController {
                 observer.onNext("message 4");
                 observer.onComplete();
             }
-        }));
+        });
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/events")
@@ -130,6 +172,8 @@ public class RxJavaController {
             return issueDate;
         }
     }
+
+
 }
 
 
