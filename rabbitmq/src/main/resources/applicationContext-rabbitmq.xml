@@ -1,0 +1,39 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/rabbit
+           http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="simpleMessageConverter" class="org.springframework.amqp.support.converter.SimpleMessageConverter"/>
+
+    <rabbit:connection-factory id="rabbitmq-connectionFactory" addresses="127.0.0.1:5672"
+                               requested-heartbeat="10" username="wuzhong" password="wuzhong" virtual-host="qg" />
+
+    <rabbit:template id="amqpTemplate" channel-transacted="" connection-factory="rabbitmq-connectionFactory"
+                     message-converter="simpleMessageConverter"/>
+
+    <rabbit:admin id="rabbitAdmin" connection-factory="rabbitmq-connectionFactory"/>
+
+    <!--发送消息 -->
+    <bean id="producerTemplate" class="com.demo.message.QGProducerTemplate" primary="true">
+        <property name="amqpTemplate" ref="amqpTemplate"/>
+    </bean>
+    <!--接收消息 -->
+    <bean id="consumerFactory" class="com.demo.message.internel.DefaultConsumerFactory">
+        <constructor-arg name="admin" ref="rabbitAdmin"/>
+        <constructor-arg name="connectionFactory" ref="rabbitmq-connectionFactory"/>
+        <constructor-arg name="context" value="default"/>
+        <constructor-arg name="simpleMessageConverter" ref="simpleMessageConverter"/>
+        <property name="concurrentConsumers" value="10"/>
+    </bean>
+    <bean id="delayConsumerFactory" class="com.demo.message.internel.DelayConsumerFactory">
+        <constructor-arg name="admin" ref="rabbitAdmin"/>
+        <constructor-arg name="connectionFactory" ref="rabbitmq-connectionFactory"/>
+        <constructor-arg name="context" value="default"/>
+        <constructor-arg name="simpleMessageConverter" ref="simpleMessageConverter"/>
+        <property name="concurrentConsumers" value="10"/>
+    </bean>
+</beans>
+

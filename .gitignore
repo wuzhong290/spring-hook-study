@@ -23,3 +23,4 @@ javaBase/target/
 rest/target/
 druid/target/
 zk/target/
+rabbitmq/target/
