@@ -8,7 +8,7 @@
 
     <bean id="simpleMessageConverter" class="org.springframework.amqp.support.converter.SimpleMessageConverter"/>
 
-    <rabbit:connection-factory id="rabbitmq-connectionFactory" addresses="127.0.0.1:5672"
+    <rabbit:connection-factory id="rabbitmq-connectionFactory" addresses="127.0.0.1:5672,127.0.0.1:5673"
                                requested-heartbeat="10" username="wuzhong" password="wuzhong" virtual-host="qg" />
 
     <rabbit:template id="amqpTemplate" channel-transacted="" connection-factory="rabbitmq-connectionFactory"

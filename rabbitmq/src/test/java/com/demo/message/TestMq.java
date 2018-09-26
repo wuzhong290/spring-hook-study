@@ -14,13 +14,24 @@ public class TestMq {
     @Resource
     private QGProducerTemplate producerTemplate;
     @Test
-    public void testMQ(){
+    public void testDelayMQ(){
         OrderRepairEvent orderRepairEvent = new OrderRepairEvent();
         orderRepairEvent.setUid(1);
-        orderRepairEvent.setUdid("udid");
+        orderRepairEvent.setUdid("udid11");
         orderRepairEvent.setOrderCode(1);
         orderRepairEvent.setRepairAddress(true);
         orderRepairEvent.setAddressId("addressId");
         producerTemplate.send("order_repair", orderRepairEvent, null, 10);
+    }
+
+    @Test
+    public void testMQ(){
+        OrderRepairEvent orderRepairEvent = new OrderRepairEvent();
+        orderRepairEvent.setUid(1);
+        orderRepairEvent.setUdid("udid11");
+        orderRepairEvent.setOrderCode(1);
+        orderRepairEvent.setRepairAddress(true);
+        orderRepairEvent.setAddressId("addressId");
+        producerTemplate.send("notice", orderRepairEvent, null, 10);
     }
 }
