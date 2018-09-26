@@ -17,11 +17,16 @@ public class TestMq {
     public void testDelayMQ(){
         OrderRepairEvent orderRepairEvent = new OrderRepairEvent();
         orderRepairEvent.setUid(1);
-        orderRepairEvent.setUdid("udid11");
+        orderRepairEvent.setUdid("udid14");
         orderRepairEvent.setOrderCode(1);
         orderRepairEvent.setRepairAddress(true);
         orderRepairEvent.setAddressId("addressId");
         producerTemplate.send("order_repair", orderRepairEvent, null, 10);
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -33,5 +38,10 @@ public class TestMq {
         orderRepairEvent.setRepairAddress(true);
         orderRepairEvent.setAddressId("addressId");
         producerTemplate.send("notice", orderRepairEvent, null, 10);
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
