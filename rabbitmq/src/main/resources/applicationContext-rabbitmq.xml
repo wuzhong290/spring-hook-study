@@ -10,7 +10,7 @@
 
     <rabbit:connection-factory id="rabbitmq-connectionFactory" addresses="127.0.0.1:5672,127.0.0.1:5673"
         requested-heartbeat="10" username="wuzhong" password="wuzhong" virtual-host="qg"
-        publisher-confirms="true"
+        publisher-confirms="true" publisher-returns="true"
     />
 
     <bean id="confirmCallback" class="com.demo.message.RabbitTemplateConfirmCallback"/>
@@ -19,7 +19,11 @@
     <rabbit:template id="amqpTemplate" channel-transacted="" connection-factory="rabbitmq-connectionFactory"
         message-converter="simpleMessageConverter"
         confirm-callback="confirmCallback"
-        return-callback="returnCallback" mandatory="true"/>
+        return-callback="returnCallback" mandatory="true"
+        reply-address="amq.topic/reply" reply-queue="queueReply">
+        <rabbit:reply-listener concurrency="2"/>
+    </rabbit:template>
+    <rabbit:queue id="queueReply" name="qg:default:reply" auto-declare="false"/>
 
     <rabbit:admin id="rabbitAdmin" connection-factory="rabbitmq-connectionFactory"/>
 
