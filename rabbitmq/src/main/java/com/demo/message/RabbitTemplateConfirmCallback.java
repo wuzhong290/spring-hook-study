@@ -5,6 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 
+/**
+ * rabbit:connection-factory  publisher-confirms="true"才有效
+ * rabbit:template confirm-callback="confirmCallback"
+ *
+ * 只确认是否正确到达 Exchange 中,至于是否有队列不关心，是否到达队列也不关心
+ */
 public class RabbitTemplateConfirmCallback implements RabbitTemplate.ConfirmCallback {
 
     private final Logger logger = LoggerFactory.getLogger(RabbitTemplateConfirmCallback.class);

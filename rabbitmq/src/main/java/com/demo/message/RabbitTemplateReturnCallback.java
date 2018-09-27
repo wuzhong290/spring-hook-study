@@ -5,6 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
+/**
+ * rabbit:template return-callback="returnCallback" mandatory="true" 同时设置才生效
+ */
 public class RabbitTemplateReturnCallback implements RabbitTemplate.ReturnCallback{
 
     private final Logger logger = LoggerFactory.getLogger(RabbitTemplateReturnCallback.class);
