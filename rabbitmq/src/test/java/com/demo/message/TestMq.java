@@ -3,6 +3,7 @@ package com.demo.message;
 import com.demo.message.model.OrderRepairEvent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -37,7 +38,9 @@ public class TestMq {
         orderRepairEvent.setOrderCode(1);
         orderRepairEvent.setRepairAddress(true);
         orderRepairEvent.setAddressId("addressId");
-        producerTemplate.send("notice_test", orderRepairEvent, null);
+        CorrelationData correlationData = new CorrelationData();
+        correlationData.setId(System.currentTimeMillis() + "");
+        producerTemplate.send("notice", orderRepairEvent, null,correlationData);
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
