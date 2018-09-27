@@ -15,7 +15,6 @@
         <dependency>
             <groupId>org.springframework.amqp</groupId>
             <artifactId>spring-rabbit</artifactId>
-            <version>1.7.10.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>

@@ -18,6 +18,11 @@
         <dependencies>
             <dependency>
                 <groupId>com.spring.hooks</groupId>
+                <artifactId>rabbitmq</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.spring.hooks</groupId>
                 <artifactId>zk</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -122,6 +127,11 @@
                 <version>4.3.19.RELEASE</version>
             </dependency>
             <dependency>
+                <groupId>org.springframework.amqp</groupId>
+                <artifactId>spring-rabbit</artifactId>
+                <version>1.7.10.RELEASE</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>4.3.19.RELEASE</version>
@@ -159,7 +169,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.13.sec01</version>
+                <version>1.2.31</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
@@ -297,9 +307,19 @@
                 <version>3.1.0</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.7</version>
+            </dependency>
+            <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>18.0</version>
+                <version>21.0</version>
             </dependency>
             <dependency>
                 <groupId>org.drools</groupId>
