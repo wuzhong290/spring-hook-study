@@ -42,7 +42,7 @@ public class TestMq {
         correlationData.setId(System.currentTimeMillis() + "");
         producerTemplate.send("notice", orderRepairEvent, null,correlationData);
         try {
-            Thread.sleep(1000L);
+            Thread.sleep(10000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

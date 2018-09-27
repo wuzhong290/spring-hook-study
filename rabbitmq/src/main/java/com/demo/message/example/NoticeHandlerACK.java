@@ -13,7 +13,7 @@ public class NoticeHandlerACK implements ChannelAwareMessageListener, QGMessageC
     private final Logger logger = LoggerFactory.getLogger(NoticeHandlerACK.class);
     @Override
     public String getMessageTopic() {
-        return "notice_test";
+        return "notice";
     }
 
     @Override
@@ -25,6 +25,17 @@ public class NoticeHandlerACK implements ChannelAwareMessageListener, QGMessageC
     public void onMessage(Message message, Channel channel) throws Exception {
         logger.info("消费手动确认："+message.toString());
         logger.info("消费手动确认deliveryTag："+message.getMessageProperties().getDeliveryTag());
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+        //1、确认消息
+        //multiple：当该参数为 true 时，则可以一次性确认 delivery_tag 小于等于传入值的所有消息
+        //false时，仅确认提供的delivery_tag的消息
+        // channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+        //2、否认消息
+        //multiple 当该参数为 true 时，则可以一次性Nack delivery_tag 小于等于传入值的所有消息
+        //false时，仅Nack提供的delivery_tag的消息
+        //requeue 当该参数为 true 时，如果被Nack的消息应该被重新请求，而不是丢弃/死字符
+        // channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
+        //3、拒绝消息
+        //requeue 当该参数为 true 时，如果被拒绝的消息应该被重新请求，而不是丢弃/死字符
+        channel.basicReject(message.getMessageProperties().getDeliveryTag(),false);
     }
 }
