@@ -9,10 +9,17 @@
     <bean id="simpleMessageConverter" class="org.springframework.amqp.support.converter.SimpleMessageConverter"/>
 
     <rabbit:connection-factory id="rabbitmq-connectionFactory" addresses="127.0.0.1:5672,127.0.0.1:5673"
-                               requested-heartbeat="10" username="wuzhong" password="wuzhong" virtual-host="qg" />
+        requested-heartbeat="10" username="wuzhong" password="wuzhong" virtual-host="qg"
+        publisher-confirms="true" publisher-returns="true"
+    />
+
+    <bean id="confirmCallback" class="com.demo.message.RabbitTemplateConfirmCallback"/>
+    <bean id="returnCallback" class="com.demo.message.RabbitTemplateReturnCallback"/>
 
     <rabbit:template id="amqpTemplate" channel-transacted="" connection-factory="rabbitmq-connectionFactory"
-                     message-converter="simpleMessageConverter"/>
+        message-converter="simpleMessageConverter"
+        confirm-callback="confirmCallback"
+        return-callback="returnCallback"/>
 
     <rabbit:admin id="rabbitAdmin" connection-factory="rabbitmq-connectionFactory"/>
 

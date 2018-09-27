@@ -33,11 +33,11 @@ public class TestMq {
     public void testMQ(){
         OrderRepairEvent orderRepairEvent = new OrderRepairEvent();
         orderRepairEvent.setUid(1);
-        orderRepairEvent.setUdid("udid11");
+        orderRepairEvent.setUdid("udid13");
         orderRepairEvent.setOrderCode(1);
         orderRepairEvent.setRepairAddress(true);
         orderRepairEvent.setAddressId("addressId");
-        producerTemplate.send("notice", orderRepairEvent, null, 10);
+        producerTemplate.send("notice_test", orderRepairEvent, null);
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {

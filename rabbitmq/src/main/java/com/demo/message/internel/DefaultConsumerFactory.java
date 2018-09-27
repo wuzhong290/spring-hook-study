@@ -3,10 +3,7 @@ package com.demo.message.internel;
 import com.demo.message.QGMessageConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
@@ -71,7 +68,7 @@ public   class DefaultConsumerFactory  implements ApplicationContextAware {
         	for(QGMessageConsumer consumer : consumerBeans.values())
         	{
         		SimpleMessageListenerContainer listenerContainer = new SimpleMessageListenerContainer();
-
+                listenerContainer.setAcknowledgeMode(AcknowledgeMode.MANUAL);
         		listenerContainer.setConnectionFactory(connectionFactory);
         		listenerContainer.setMessageConverter(this.simpleMessageConverter);
                 listenerContainer.setConcurrentConsumers(concurrentConsumers);
