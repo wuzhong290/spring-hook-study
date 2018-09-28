@@ -16,12 +16,12 @@
     <bean id="confirmCallback" class="com.demo.message.RabbitTemplateConfirmCallback"/>
     <bean id="returnCallback" class="com.demo.message.RabbitTemplateReturnCallback"/>
 
-    <rabbit:template id="amqpTemplate" channel-transacted="" connection-factory="rabbitmq-connectionFactory"
+    <rabbit:template id="amqpTemplate" channel-transacted="false" connection-factory="rabbitmq-connectionFactory"
         message-converter="simpleMessageConverter"
         confirm-callback="confirmCallback"
         return-callback="returnCallback" mandatory="true"
         reply-address="amq.topic/reply" reply-queue="queueReply">
-        <rabbit:reply-listener concurrency="2"/>
+        <rabbit:reply-listener concurrency="10" prefetch="10"/>
     </rabbit:template>
     <rabbit:queue id="queueReply" name="qg:default:reply" auto-declare="false"/>
 
