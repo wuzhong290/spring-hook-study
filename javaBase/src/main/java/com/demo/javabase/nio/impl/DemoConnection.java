@@ -5,6 +5,7 @@ import com.demo.javabase.nio.ErrorCode;
 import com.demo.javabase.nio.NIOHandler;
 import com.demo.javabase.nio.NIOProcessor;
 import com.demo.javabase.nio.util.TimeUtil;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +26,11 @@ public class DemoConnection extends AbstractConnection {
         handler = new NIOHandler() {
             @Override
             public void handle(byte[] data) {
-                LOGGER.info("handle data:{}",new String(data));
+                byte[] packetHeader = ArrayUtils.subarray(data, 0, 4);
+                byte[] packetBody = ArrayUtils.subarray(data,4, data.length);
+                LOGGER.info("handle packetHeader:{},packetBody:{}", new String(packetHeader), new String(packetBody));
                 ByteBuffer buffer = allocate();
-                buffer.put("hello".getBytes());
+                buffer.put(packetBody);
                 write(buffer);
             }
         };
@@ -76,7 +79,7 @@ public class DemoConnection extends AbstractConnection {
         } else {
             byte[] packetHeader = new byte[4];
             for (int i = offset; i < offset + 4 ; i++) {
-                packetHeader[i] = buffer.get(i);
+                packetHeader[i - offset] = buffer.get(i);
             }
             String ph = new String(packetHeader);
             if(StringUtils.isNumeric(ph)){

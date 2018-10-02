@@ -49,7 +49,6 @@ public abstract class AbstractConnection implements NIOConnection {
     protected final ReentrantLock writeLock;
     protected boolean isRegistered;
     protected final AtomicBoolean isClosed;
-    protected boolean isSocketClosed;
     protected long startupTime;
     protected long lastReadTime;
     protected long lastWriteTime;
