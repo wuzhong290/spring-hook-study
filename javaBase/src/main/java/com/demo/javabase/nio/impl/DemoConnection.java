@@ -36,6 +36,9 @@ public class DemoConnection extends AbstractConnection {
         };
     }
 
+    /**
+     * 定时执行该方法，回收部分资源。
+     */
     @Override
     protected void idleCheck() {
         if (isIdleTimeout()) {
@@ -44,6 +47,11 @@ public class DemoConnection extends AbstractConnection {
         }
     }
 
+    /**
+     * 重写：处理读过来的数据包：包含：包头 和 包体
+     * 具体的执行动作可以放在一个线程池中
+     * @param data
+     */
     @Override
     public void handle(byte[] data) {
         processor.getHandler().execute(new Runnable() {
@@ -58,20 +66,39 @@ public class DemoConnection extends AbstractConnection {
         });
     }
 
+    /**
+     * 重写：出现异常是关闭SocketChannel链接
+     * @param errCode
+     * @param t
+     */
     @Override
     public void error(int errCode, Throwable t) {
         LOGGER.error("handle errCode:{},message:{}", errCode, t.getMessage());
         close();
     }
 
+    /**
+     * 重写：把接收到的SocketChannel注册到这个的Selector上，
+     * 用于接收SelectionKey.OP_READ事件
+     * @param selector
+     * @throws IOException
+     */
     @Override
     public void register(Selector selector) throws IOException {
         super.register(selector);
         ByteBuffer buffer = allocate();
-        buffer.put((this.getChannel().getLocalAddress() +"hello").getBytes());
+        buffer.put((this.getChannel().getLocalAddress() +" hello " +this.getChannel().getRemoteAddress()).getBytes());
         write(buffer);
     }
 
+    /**
+     * 重写：获取数据包头部信息（开始4个字节），
+     * 开始4个字节必须是数字类型的，直接转换成数字+packetHeaderSize，就是包的长度
+     * 开始4个字节必须不是数字类型的，异常数据包，当前缓冲区长度作为包的长度
+     * @param buffer
+     * @param offset
+     * @return
+     */
     @Override
     protected int getPacketLength(ByteBuffer buffer, int offset){
         if (buffer.position() < offset + packetHeaderSize) {

@@ -32,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 public class SampleServer {
     private static final int SERVER_PORT = 8066;
     private static final long TIME_UPDATE_PERIOD = 100L;
+    private static final long DEFAULT_PROCESSOR_CHECK_PERIOD = 15 * 1000L;
     private static final SampleServer INSTANCE = new SampleServer();
     private static final Logger LOGGER = LoggerFactory.getLogger(SampleServer.class);
 
@@ -67,7 +68,15 @@ public class SampleServer {
             processors[i] = new NIOProcessor(name + "Processor" + i);
             processors[i].startup();
         }
-
+        //定时执行该方法，回收部分资源。
+        timer.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                for (NIOProcessor p : processors) {
+                    p.check();
+                }
+            }
+        }, 0L, DEFAULT_PROCESSOR_CHECK_PERIOD, TimeUnit.MILLISECONDS);
         // startup server
         server = new NIOAcceptor(name + "Server", SERVER_PORT);
         server.setProcessors(processors);
