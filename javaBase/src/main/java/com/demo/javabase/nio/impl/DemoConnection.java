@@ -5,6 +5,7 @@ import com.demo.javabase.nio.ErrorCode;
 import com.demo.javabase.nio.NIOHandler;
 import com.demo.javabase.nio.NIOProcessor;
 import com.demo.javabase.nio.util.TimeUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,9 +35,7 @@ public class DemoConnection extends AbstractConnection {
 
     @Override
     protected void idleCheck() {
-        //TODO isIdleTimeout()
-        LOGGER.warn(toString() + " idle timeout");
-        if (false) {
+        if (isIdleTimeout()) {
             LOGGER.warn(toString() + " idle timeout");
             close();
         }
@@ -44,7 +43,6 @@ public class DemoConnection extends AbstractConnection {
 
     @Override
     public void handle(byte[] data) {
-        LOGGER.info("handle data:{}",new String(data));
         processor.getHandler().execute(new Runnable() {
             @Override
             public void run() {
@@ -67,13 +65,27 @@ public class DemoConnection extends AbstractConnection {
     public void register(Selector selector) throws IOException {
         super.register(selector);
         ByteBuffer buffer = allocate();
-        buffer.put("hello".getBytes());
+        buffer.put((this.getChannel().getLocalAddress() +"hello").getBytes());
         write(buffer);
     }
 
     @Override
-    protected int getPacketLength(ByteBuffer buffer, int offset) {
-        return 1;
+    protected int getPacketLength(ByteBuffer buffer, int offset){
+        if (buffer.position() < offset + packetHeaderSize) {
+            return -1;
+        } else {
+            byte[] packetHeader = new byte[4];
+            for (int i = offset; i < offset + 4 ; i++) {
+                packetHeader[i] = buffer.get(i);
+            }
+            String ph = new String(packetHeader);
+            if(StringUtils.isNumeric(ph)){
+                int length = Integer.valueOf(ph);
+                return length + packetHeaderSize;
+            }else{
+                return buffer.position();
+            }
+        }
     }
 
     public void setProcessor(NIOProcessor processor) {
