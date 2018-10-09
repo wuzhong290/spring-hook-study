@@ -16,21 +16,20 @@ public class HeapSortMain {
             leftSwitch = a[leftIndex] > a[baseIndex];
         }
         if(rightSwitch){
-            switchMaxItem(a, baseIndex, endIndex, rightSwitch, rightIndex);
+            switchMaxItem(a, baseIndex, rightIndex, endIndex);
         }
         if(leftSwitch){
-            switchMaxItem(a, baseIndex, endIndex, leftSwitch, leftIndex);
+            switchMaxItem(a, baseIndex, leftIndex, endIndex);
         }
     }
 
 
-    private static void switchMaxItem(int[] a, int baseIndex, int endIndex, boolean isSwitch, int rightIndex) {
-        if(isSwitch){
-            a[baseIndex] = a[baseIndex] ^ a[rightIndex];
-            a[rightIndex] = a[baseIndex] ^ a[rightIndex];
-            a[baseIndex] = a[baseIndex] ^ a[rightIndex];
-            maxHeapSort(a, rightIndex ,endIndex);
-        }
+    private static void switchMaxItem(int[] a, int baseIndex, int switchIndex, int endIndex) {
+        a[baseIndex] = a[baseIndex] ^ a[switchIndex];
+        a[switchIndex] = a[baseIndex] ^ a[switchIndex];
+        a[baseIndex] = a[baseIndex] ^ a[switchIndex];
+        //交换后的节点需要重新建堆
+        maxHeapSort(a, switchIndex ,endIndex);
     }
 
     private static void minHeapSort(int[] a, int baseIndex, int endIndex){
@@ -45,20 +44,19 @@ public class HeapSortMain {
             leftSwitch = a[leftIndex] < a[baseIndex];
         }
         if(rightSwitch){
-            switchMinItem(a, baseIndex, endIndex, rightSwitch, rightIndex);
+            switchMinItem(a, baseIndex, rightIndex, endIndex);
         }
         if(leftSwitch){
-            switchMinItem(a, baseIndex, endIndex, leftSwitch, leftIndex);
+            switchMinItem(a, baseIndex, leftIndex, endIndex);
         }
     }
 
-    private static void switchMinItem(int[] a, int baseIndex, int endIndex, boolean isSwitch, int rightIndex) {
-        if(isSwitch){
-            a[baseIndex] = a[baseIndex] ^ a[rightIndex];
-            a[rightIndex] = a[baseIndex] ^ a[rightIndex];
-            a[baseIndex] = a[baseIndex] ^ a[rightIndex];
-            minHeapSort(a, rightIndex ,endIndex);
-        }
+    private static void switchMinItem(int[] a, int baseIndex, int switchIndex, int endIndex) {
+        a[baseIndex] = a[baseIndex] ^ a[switchIndex];
+        a[switchIndex] = a[baseIndex] ^ a[switchIndex];
+        a[baseIndex] = a[baseIndex] ^ a[switchIndex];
+        //交换后的节点需要重新建堆
+        minHeapSort(a, switchIndex ,endIndex);
     }
 
     public static void main(String[] args) {
