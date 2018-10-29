@@ -73,6 +73,7 @@ public class ErrorMessageRestExceptionHandler<E extends Exception>
     }
 
 
+    @Override
     public ErrorMessage createBody(E ex, HttpServletRequest req) {
 
         ErrorMessage m = new ErrorMessage();
@@ -126,6 +127,7 @@ public class ErrorMessageRestExceptionHandler<E extends Exception>
         this.messageSource = messageSource;
     }
 
+    @Override
     public void setMessageInterpolator(MessageInterpolator interpolator) {
         this.interpolator = interpolator != null ? interpolator : new NoOpMessageInterpolator();
     }

@@ -63,6 +63,7 @@ public class SpelMessageInterpolator implements MessageInterpolator {
     }
 
 
+    @Override
     public String interpolate(String messageTemplate, Map<String, Object> variables) {
         Assert.notNull(messageTemplate, "messageTemplate must not be null");
 

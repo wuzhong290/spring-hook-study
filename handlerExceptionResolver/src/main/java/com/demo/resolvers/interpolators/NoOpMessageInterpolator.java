@@ -23,6 +23,7 @@ import java.util.Map;
  */
 public class NoOpMessageInterpolator implements MessageInterpolator {
 
+    @Override
     public String interpolate(String messageTemplate, Map<String, Object> variables) {
         return messageTemplate;
     }

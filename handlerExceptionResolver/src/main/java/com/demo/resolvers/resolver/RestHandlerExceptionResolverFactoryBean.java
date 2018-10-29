@@ -35,6 +35,7 @@ public class RestHandlerExceptionResolverFactoryBean implements FactoryBean<Rest
     private boolean withDefaultMessageSource = true;
 
 
+    @Override
     @SuppressWarnings("unchecked")
     public RestHandlerExceptionResolver getObject() {
 
@@ -62,10 +63,12 @@ public class RestHandlerExceptionResolverFactoryBean implements FactoryBean<Rest
         return builder.build();
     }
 
+    @Override
     public Class<?> getObjectType() {
         return RestHandlerExceptionResolver.class;
     }
 
+    @Override
     public boolean isSingleton() {
         return true;
     }

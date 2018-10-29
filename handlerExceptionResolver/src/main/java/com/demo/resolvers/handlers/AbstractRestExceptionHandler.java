@@ -62,6 +62,7 @@ public abstract class AbstractRestExceptionHandler<E extends Exception, T> imple
 
     ////// Template methods //////
 
+    @Override
     public ResponseEntity<T> handleException(E ex, HttpServletRequest req) {
 
         logException(ex, req);
