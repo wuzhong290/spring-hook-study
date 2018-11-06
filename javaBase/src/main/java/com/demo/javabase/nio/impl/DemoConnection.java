@@ -116,7 +116,7 @@ public class DemoConnection extends AbstractConnection {
 
     public void setProcessor(NIOProcessor processor) {
         this.processor = processor;
-        this.readBuffer = processor.getBufferPool().allocate();
+        this.readBuffer = allocate();
         //把接收到的SocketChannel放入NIOProcessor的Frontend池中,用户连接检查
         processor.addFrontend(this);
     }
