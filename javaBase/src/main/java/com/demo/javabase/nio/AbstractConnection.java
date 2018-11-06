@@ -178,7 +178,8 @@ public abstract class AbstractConnection implements NIOConnection {
             position = buffer.position();
         for (;;) {
             length = getPacketLength(buffer, offset);
-            if (length == -1) {// 未达到可计算数据包长度的数据
+            if (length == -1) {
+                // 未达到可计算数据包长度的数据
                 if (!buffer.hasRemaining()) {
                     checkReadBuffer(buffer, offset, position);
                 }
@@ -193,13 +194,15 @@ public abstract class AbstractConnection implements NIOConnection {
 
                 // 设置偏移量
                 offset += length;
-                if (position == offset) {// 数据正好全部处理完毕
+                if (position == offset) {
+                    // 数据正好全部处理完毕
                     if (readBufferOffset != 0) {
                         readBufferOffset = 0;
                     }
                     buffer.clear();
                     break;
-                } else {// 还有剩余数据未处理
+                } else {
+                    // 还有剩余数据未处理
                     readBufferOffset = offset;
                     buffer.position(position);
                     continue;
@@ -222,7 +225,7 @@ public abstract class AbstractConnection implements NIOConnection {
     @Override
     public void write(ByteBuffer buffer) {
         if (isClosed.get()) {
-            processor.getBufferPool().recycle(buffer);
+            recycle(buffer);
             return;
         }
         if (isRegistered) {
@@ -234,7 +237,7 @@ public abstract class AbstractConnection implements NIOConnection {
             }
             processor.postWrite(this);
         } else {
-            processor.getBufferPool().recycle(buffer);
+            recycle(buffer);
             close();
         }
     }
@@ -332,7 +335,7 @@ public abstract class AbstractConnection implements NIOConnection {
             } else {
                 buffer.put(src, offset, remaining);
                 write(buffer);
-                buffer = processor.getBufferPool().allocate();
+                buffer = allocate();
                 offset += remaining;
                 length -= remaining;
                 remaining = buffer.remaining();
@@ -497,20 +500,6 @@ public abstract class AbstractConnection implements NIOConnection {
         }
     }
 
-    private void clearSelectionKey() {
-        final Lock lock = this.keyLock;
-        lock.lock();
-        try {
-            SelectionKey key = this.processKey;
-            if (key != null && key.isValid()) {
-                key.attach(null);
-                key.cancel();
-            }
-        } finally {
-            lock.unlock();
-        }
-    }
-
     private boolean closeSocket() {
         clearSelectionKey();
         SocketChannel channel = this.channel;
@@ -534,4 +523,18 @@ public abstract class AbstractConnection implements NIOConnection {
         }
     }
 
+
+    private void clearSelectionKey() {
+        final Lock lock = this.keyLock;
+        lock.lock();
+        try {
+            SelectionKey key = this.processKey;
+            if (key != null && key.isValid()) {
+                key.attach(null);
+                key.cancel();
+            }
+        } finally {
+            lock.unlock();
+        }
+    }
 }

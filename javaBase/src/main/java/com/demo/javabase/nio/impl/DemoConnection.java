@@ -86,9 +86,7 @@ public class DemoConnection extends AbstractConnection {
     @Override
     public void register(Selector selector) throws IOException {
         super.register(selector);
-        ByteBuffer buffer = allocate();
-        buffer.put((this.getChannel().getLocalAddress() +" hello " +this.getChannel().getRemoteAddress()).getBytes());
-        write(buffer);
+        write((this.getChannel().getLocalAddress() +" hello " +this.getChannel().getRemoteAddress()).getBytes());
     }
 
     /**
