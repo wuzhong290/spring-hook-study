@@ -29,9 +29,7 @@ public class DemoConnection extends AbstractConnection {
                 byte[] packetHeader = ArrayUtils.subarray(data, 0, 4);
                 byte[] packetBody = ArrayUtils.subarray(data,4, data.length);
                 LOGGER.info("handle packetHeader:{},packetBody:{}", new String(packetHeader), new String(packetBody));
-                ByteBuffer buffer = allocate();
-                buffer.put(packetBody);
-                write(buffer);
+                write(packetBody);
             }
         };
     }

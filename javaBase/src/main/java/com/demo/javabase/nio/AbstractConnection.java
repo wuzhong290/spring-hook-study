@@ -442,14 +442,14 @@ public abstract class AbstractConnection implements NIOConnection {
                 return false;
             } else {
                 writeQueue.attach(null);
-                processor.getBufferPool().recycle(buffer);
+                recycle(buffer);
             }
         }
         // 写出发送队列中的数据块
         if ((buffer = writeQueue.poll()) != null) {
             // 如果是一块未使用过的buffer，则执行关闭连接。
             if (buffer.position() == 0) {
-                processor.getBufferPool().recycle(buffer);
+                recycle(buffer);
                 close();
                 return true;
             }
@@ -465,7 +465,7 @@ public abstract class AbstractConnection implements NIOConnection {
                 writeAttempts++;
                 return false;
             } else {
-                processor.getBufferPool().recycle(buffer);
+                recycle(buffer);
             }
         }
         return true;
