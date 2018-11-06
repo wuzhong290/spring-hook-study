@@ -417,7 +417,7 @@ public abstract class AbstractConnection implements NIOConnection {
             newBuffer.put(buffer);
             readBuffer = newBuffer;
             // 回收扩容前的缓存块
-            processor.getBufferPool().recycle(buffer);
+            recycle(buffer);
             return newBuffer;
         } else {
             buffer.position(offset);
