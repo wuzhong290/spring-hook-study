@@ -42,8 +42,10 @@ public class WindowSlide {
         public Observable<Integer> apply(Observable<Integer> integerObservable) throws Exception {
             //跳过第一个数据，因为给了scan一个默认值0，这个值需要跳过，如果不设置就不需要跳过
             //integerObservable.scan(0, PUBLIC_SUM).skip(1)
+            //integerObservable.scan(SCAN_PUBLIC_SUM);
             //scan对发射的数据进行处理，发送每次的处理结果
-            return integerObservable.scan(SCAN_PUBLIC_SUM);
+            //将SCAN_PUBLIC_SUM的每一次的执行结果都发出来
+            return integerObservable.scan(0, SCAN_PUBLIC_SUM).skip(1);
         }
     };
 
@@ -74,8 +76,7 @@ public class WindowSlide {
                     @Override
                     public void accept(Integer integer) throws Exception {
                         // 输出统计数据到日志
-                        LOG.info("[{}] call ...... {}",
-                                Thread.currentThread().getName(), integer);
+                        LOG.info("[{}] call ...... {}", Thread.currentThread().getName(), integer);
                     }
                 });
         for (int i = 0; i < 50; i++) {
