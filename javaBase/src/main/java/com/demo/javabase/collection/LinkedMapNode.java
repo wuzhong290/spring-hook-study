@@ -10,9 +10,13 @@ public class LinkedMapNode {
     protected transient LinkEntry header;
     protected transient int modCount;
     protected transient int size;
+    private transient int maxSize;
+    private boolean scanUntilRemovable;
 
     public LinkedMapNode() {
         this.data = new HashEntry[10];
+        this.maxSize = 10;
+        this.scanUntilRemovable = false;
         init();
     }
 
@@ -77,6 +81,88 @@ public class LinkedMapNode {
         }
     }
     protected void addMapping(int hashIndex, int hashCode, Object key, Object value) {
+        if (isFull()) {
+            LinkEntry reuse = header.after;
+            boolean removeLRUEntry = false;
+            if (scanUntilRemovable) {
+                while (reuse != header && reuse != null) {
+                    if (removeLRU(reuse)) {
+                        removeLRUEntry = true;
+                        break;
+                    }
+                    reuse = reuse.after;
+                }
+                if (reuse == null) {
+                    throw new IllegalStateException(
+                            "Entry.after=null, header.after" + header.after + " header.before" + header.before +
+                                    " key=" + key + " value=" + value + " size=" + size + " maxSize=" + maxSize +
+                                    " Please check that your keys are immutable, and that you have used synchronization properly." +
+                                    " If so, then please report this to commons-dev@jakarta.apache.org as a bug.");
+                }
+            } else {
+                removeLRUEntry = removeLRU(reuse);
+            }
+
+            if (removeLRUEntry) {
+                if (reuse == null) {
+                    throw new IllegalStateException(
+                            "reuse=null, header.after=" + header.after + " header.before" + header.before +
+                                    " key=" + key + " value=" + value + " size=" + size + " maxSize=" + maxSize +
+                                    " Please check that your keys are immutable, and that you have used synchronization properly." +
+                                    " If so, then please report this to commons-dev@jakarta.apache.org as a bug.");
+                }
+                reuseMapping(reuse, hashIndex, hashCode, key, value);
+            } else {
+                addMapping1(hashIndex, hashCode, key, value);
+            }
+        } else {
+            addMapping1(hashIndex, hashCode, key, value);
+        }
+    }
+    protected boolean removeLRU(LinkEntry entry) {
+        return true;
+    }
+    public boolean isFull() {
+        return (size >= maxSize);
+    }
+    protected void reuseMapping(LinkEntry entry, int hashIndex, int hashCode, Object key, Object value) {
+        try {
+            int removeIndex = hashIndex(entry.hashCode, data.length);
+            HashEntry[] tmp = data;
+            HashEntry loop = tmp[removeIndex];
+            HashEntry previous = null;
+            while (loop != entry && loop != null) {
+                previous = loop;
+                loop = loop.next;
+            }
+            if (loop == null) {
+                throw new IllegalStateException(
+                        "Entry.next=null, data[removeIndex]=" + data[removeIndex] + " previous=" + previous +
+                                " key=" + key + " value=" + value + " size=" + size + " maxSize=" + maxSize +
+                                " Please check that your keys are immutable, and that you have used synchronization properly." +
+                                " If so, then please report this to commons-dev@jakarta.apache.org as a bug.");
+            }
+
+            // reuse the entry
+            modCount++;
+            removeEntry(entry, removeIndex, previous);
+            reuseEntry(entry, hashIndex, hashCode, key, value);
+            addEntry(entry, hashIndex);
+        } catch (NullPointerException ex) {
+            throw new IllegalStateException(
+                    "NPE, entry=" + entry + " entryIsHeader=" + (entry==header) +
+                            " key=" + key + " value=" + value + " size=" + size + " maxSize=" + maxSize +
+                            " Please check that your keys are immutable, and that you have used synchronization properly." +
+                            " If so, then please report this to commons-dev@jakarta.apache.org as a bug.");
+        }
+    }
+    protected void reuseEntry(HashEntry entry, int hashIndex, int hashCode, Object key, Object value) {
+        entry.next = data[hashIndex];
+        entry.hashCode = hashCode;
+        entry.key = key;
+        entry.value = value;
+    }
+    protected void addMapping1(int hashIndex, int hashCode, Object key, Object value) {
         modCount++;
         HashEntry entry = createEntry(data[hashIndex], hashCode, key, value);
         addEntry(entry, hashIndex);
