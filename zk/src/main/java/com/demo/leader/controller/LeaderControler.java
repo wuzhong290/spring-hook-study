@@ -1,6 +1,7 @@
 package com.demo.leader.controller;
 
 import com.demo.leader.ExampleClient;
+import com.demo.leader.LeaderLatchDemo;
 import org.apache.curator.framework.CuratorFramework;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,17 +18,28 @@ public class LeaderControler {
     @Autowired
     private CuratorFramework curatorFramework;
 
-    private static final String PATH = "/qg/leader";
+    private static final String PATH = "/qg/leader_selector";
 
-    @RequestMapping("/leadertest")
+    @RequestMapping("/leaderselector")
     @ResponseBody
-    public String leadertest(@RequestParam String c) {
+    public String leaderSelector(@RequestParam String c) {
         ExampleClient example = new ExampleClient(curatorFramework, PATH, "Client #"+c);
         try {
             example.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "leadertest";
+        return "leaderSelector";
+    }
+    @RequestMapping("/leaderlatch")
+    @ResponseBody
+    public String leaderlatch() {
+        LeaderLatchDemo example = new LeaderLatchDemo(curatorFramework);
+        try {
+            example.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "leaderlatch";
     }
 }
