@@ -85,11 +85,12 @@ public class HttpClientsSslFactory implements FactoryBean<CloseableHttpClient>,I
 		
 		HttpClientBuilder b = HttpClients.custom();
 
-		InputStream inputStream = HttpClientsSslFactory.class.getResourceAsStream("/wuzhong.p12");
+		InputStream inputStream = HttpClientsSslFactory.class.getResourceAsStream("/wuzhong_passtest.p12");
 		SSLContext sslContext;
 		try {
 			KeyStore keystore = KeyStore.getInstance("PKCS12");
-			String str="wuzhong";
+			//p12证书保护口令
+			String str="passtest";
 			char[] partnerId2charArray=str.toCharArray();
 			keystore.load(inputStream, partnerId2charArray);
 			sslContext = SSLContexts.custom().loadKeyMaterial(keystore, partnerId2charArray).build();
