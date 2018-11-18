@@ -61,7 +61,6 @@ public class AES {
         Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);
         SecretKeySpec k =  new SecretKeySpec(keyBytes, KEY_ALGORITHM);
         cipher.init(Cipher.ENCRYPT_MODE, k);
-
         return  Base64.encodeBase64String(cipher.doFinal(dataBytes));
 
     }
@@ -164,5 +163,26 @@ public class AES {
 
     }
 
-
+    public static void main(String[] args) {
+        try {
+            String en = encrypt("1234567890123456","This is a secret messageThis is a secret messageThis is a secret messageThis is a secret messageThis is a secret messageThis is a secret messageThis is a secret messageThis is a secret messageThis is a secret messageThis is a secret messageThis is a secret messageThis is a secret messageThis is a secret messageThis is a secret messageThis is a secret messageThis is a secret message");
+            System.out.println(decrypt("1234567890123456",en));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
